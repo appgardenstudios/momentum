@@ -1,60 +1,112 @@
 import 'package:flutter/material.dart';
 
-import 'package:momentum/boring.dart';
+import 'package:momentum/page/home.dart';
+import 'package:momentum/page/new_project.dart';
 
 void main() {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
 
   @override
+  State<StatefulWidget> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  final AppRouterDelegate _routerDelegate = AppRouterDelegate();
+  final AppRouteInformationParser _routeInformationParser =
+      AppRouteInformationParser();
+
+  @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       title: 'Momentum',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const HomePage(),
+      routerDelegate: _routerDelegate,
+      routeInformationParser: _routeInformationParser,
     );
   }
 }
 
-class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+class AppRouteInformationParser extends RouteInformationParser<AppRoutePath> {
+  @override
+  Future<AppRoutePath> parseRouteInformation(
+      RouteInformation routeInformation) async {
+    final uri = Uri.parse(routeInformation.location!);
+    return AppRoutePath(uri.path);
+  }
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  RouteInformation restoreRouteInformation(AppRoutePath configuration) {
+    return RouteInformation(location: configuration.path);
+  }
 }
 
-class _HomePageState extends State<HomePage> {
+class AppRouterDelegate extends RouterDelegate<AppRoutePath>
+    with ChangeNotifier, PopNavigatorRouterDelegateMixin<AppRoutePath> {
+  @override
+  final GlobalKey<NavigatorState> navigatorKey;
+
+  AppRoutePath? currentPath;
+
+  AppRouterDelegate() : navigatorKey = GlobalKey<NavigatorState>();
+
+  @override
+  AppRoutePath get currentConfiguration {
+    // If no current path, default to the home page
+    if (currentPath == null) {
+      return const AppRoutePath(AppRoutePath.home);
+    }
+    return currentPath!;
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Welcome!'),
-        centerTitle: false,
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Container(
-                constraints: const BoxConstraints(minWidth: 100, maxWidth: 300),
-                margin: const EdgeInsets.only(bottom: 32.0),
-                child: const BoringH1(
-                  text:
-                      'Momentum helps you break a project down into bite-sized pieces so you can work on it every single day.',
-                  textAlign: TextAlign.center,
-                )),
-            const BoringButton(
-              text: 'Create Project',
-            ),
-          ],
-        ),
-      ),
+    return Navigator(
+      key: navigatorKey,
+      pages: [
+        if (currentConfiguration.isNewProjectPage)
+          const NewProjectPage()
+        else
+          HomePage(this),
+      ],
+      onPopPage: (route, result) {
+        if (!route.didPop(result)) {
+          return false;
+        }
+
+        notifyListeners();
+
+        return true;
+      },
     );
   }
+
+  @override
+  Future<void> setNewRoutePath(AppRoutePath configuration) async {
+    currentPath = configuration;
+    notifyListeners();
+  }
+
+  void navigate(String path) {
+    currentPath = AppRoutePath(path);
+    notifyListeners();
+  }
+}
+
+class AppRoutePath {
+  static const String home = '/';
+  static const String newProject = '/new-project';
+
+  final String path;
+
+  const AppRoutePath(this.path);
+
+  bool get isHomePage => path == home;
+  bool get isNewProjectPage => path == newProject;
 }

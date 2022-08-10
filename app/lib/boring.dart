@@ -27,11 +27,15 @@ enum BoringButtonRole {
 
 class BoringButton extends StatelessWidget {
   const BoringButton(
-      {Key? key, this.text = '', this.role = BoringButtonRole.primary})
+      {Key? key,
+      this.text = '',
+      this.role = BoringButtonRole.primary,
+      this.onPressed})
       : super(key: key);
 
   final String text;
   final BoringButtonRole role;
+  final void Function()? onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +44,7 @@ class BoringButton extends StatelessWidget {
         textStyle: const TextStyle(fontSize: 16),
         padding: const EdgeInsets.all(16.0),
       ),
-      onPressed: () => {},
+      onPressed: onPressed,
       child: Text(text),
     );
   }
