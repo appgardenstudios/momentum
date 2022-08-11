@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'package:momentum/boring.dart';
+
 class NewProjectPage extends Page {
   const NewProjectPage({Key? key}) : super(key: const ValueKey("/new-project"));
 
@@ -24,8 +26,37 @@ class NewPageScreen extends StatelessWidget {
         title: const Text('New Project'),
         centerTitle: false,
       ),
-      body: const Center(
-        child: Text('New Project'),
+      body: Center(
+        child: Container(
+            constraints: const BoxConstraints(
+              minWidth: 100,
+              maxWidth: 320,
+              minHeight: double.infinity,
+              maxHeight: double.infinity,
+            ),
+            child: ListView(
+              children: [
+                const BoringH2('What name would you like to use?'),
+                const BoringP(
+                    'It can be a working name, an actual name, or a silly made-up name.'),
+                const BoringInput(),
+                const BoringP('Must be between 1 and 32 characters'),
+                const BoringH2(
+                    'How much time can you devote to a single task?'),
+                const BoringP(
+                    'It can be a working name, an actual name, or a silly made-up name.'),
+                const BoringInput(),
+                const BoringP('Must not be blank'),
+                Row(
+                  children: [
+                    const BoringP('Cancel'),
+                    const Spacer(),
+                    BoringButton(text: 'Go', onPressed: () => {})
+                  ],
+                ),
+                const BoringP('Could not save. Please try again'),
+              ],
+            )),
       ),
     );
   }

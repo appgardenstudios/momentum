@@ -33,6 +33,18 @@ class _MyAppState extends State<MyApp> {
   }
 }
 
+class AppRoutePath {
+  static const String home = '/';
+  static const String newProject = '/new-project';
+
+  final String path;
+
+  const AppRoutePath(this.path);
+
+  bool get isHomePage => path == home;
+  bool get isNewProjectPage => path == newProject;
+}
+
 class AppRouteInformationParser extends RouteInformationParser<AppRoutePath> {
   @override
   Future<AppRoutePath> parseRouteInformation(
@@ -97,16 +109,4 @@ class AppRouterDelegate extends RouterDelegate<AppRoutePath>
     currentPath = AppRoutePath(path);
     notifyListeners();
   }
-}
-
-class AppRoutePath {
-  static const String home = '/';
-  static const String newProject = '/new-project';
-
-  final String path;
-
-  const AppRoutePath(this.path);
-
-  bool get isHomePage => path == home;
-  bool get isNewProjectPage => path == newProject;
 }
