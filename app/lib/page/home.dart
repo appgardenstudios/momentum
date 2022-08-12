@@ -47,12 +47,12 @@ class _HomeWidgetState extends State<HomeWidget> {
             Container(
                 constraints: const BoxConstraints(minWidth: 100, maxWidth: 300),
                 margin: const EdgeInsets.only(bottom: 32.0),
-                child: const BoringH1(
+                child: const BoringText(
                   'Momentum helps you break a project down into bite-sized pieces so you can work on it every single day.',
                   textAlign: TextAlign.center,
                 )),
             BoringButton(
-              text: 'Create Project',
+              'Create Project',
               onPressed: _createProject,
             ),
           ],

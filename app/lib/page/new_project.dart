@@ -1,23 +1,38 @@
 import 'package:flutter/material.dart';
 
+import 'package:momentum/main.dart';
 import 'package:momentum/boring.dart';
 
 class NewProjectPage extends Page {
-  const NewProjectPage({Key? key}) : super(key: const ValueKey("/new-project"));
+  const NewProjectPage(this.d, {Key? key})
+      : super(key: const ValueKey("/new-project"));
+
+  final AppRouterDelegate d;
 
   @override
   Route createRoute(BuildContext context) {
     return MaterialPageRoute(
       settings: this,
       builder: (BuildContext context) {
-        return const NewPageScreen();
+        return NewPageScreen(d);
       },
     );
   }
 }
 
-class NewPageScreen extends StatelessWidget {
-  const NewPageScreen({Key? key}) : super(key: key);
+class NewPageScreen extends StatefulWidget {
+  const NewPageScreen(this.d, {Key? key}) : super(key: key);
+
+  final AppRouterDelegate d;
+
+  @override
+  State<NewPageScreen> createState() => _NewPageScreenState();
+}
+
+class _NewPageScreenState extends State<NewPageScreen> {
+  final String nameError = '';
+  final String timeError = '';
+  final String saveError = '';
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +40,7 @@ class NewPageScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('New Project'),
         centerTitle: false,
+        automaticallyImplyLeading: false,
       ),
       body: Center(
         child: Container(
@@ -36,25 +52,42 @@ class NewPageScreen extends StatelessWidget {
             ),
             child: ListView(
               children: [
-                const BoringH2('What name would you like to use?'),
-                const BoringP(
-                    'It can be a working name, an actual name, or a silly made-up name.'),
-                const BoringInput(),
-                const BoringP('Must be between 1 and 32 characters'),
-                const BoringH2(
+                const Padding(
+                    padding: EdgeInsets.only(top: 16),
+                    child: BoringH6('What is your project named?')),
+                const Padding(
+                    padding: EdgeInsets.only(left: 8),
+                    child: BoringText(
+                        'It can be a working name, an actual name, or a silly made-up name.')),
+                const Padding(
+                  padding: EdgeInsets.only(top: 4),
+                  child: BoringInput(),
+                ),
+                BoringCaption(nameError),
+                const BoringH6(
                     'How much time can you devote to a single task?'),
-                const BoringP(
-                    'It can be a working name, an actual name, or a silly made-up name.'),
-                const BoringInput(),
-                const BoringP('Must not be blank'),
+                const Padding(
+                    padding: EdgeInsets.only(left: 8),
+                    child: BoringText(
+                        'This should be the amount of time you would like to spend working on your project every day in a single session.')),
+                const Padding(
+                  padding: EdgeInsets.only(top: 4),
+                  child: BoringInput(),
+                ),
+                BoringCaption(timeError),
                 Row(
                   children: [
-                    const BoringP('Cancel'),
+                    BoringLink('Cancel',
+                        onPressed: () =>
+                            {widget.d.navigate(AppRoutePath.home)}),
                     const Spacer(),
-                    BoringButton(text: 'Go', onPressed: () => {})
+                    BoringButton('Go', onPressed: () => {})
                   ],
                 ),
-                const BoringP('Could not save. Please try again'),
+                BoringCaption(
+                  saveError,
+                  textAlign: TextAlign.end,
+                ),
               ],
             )),
       ),

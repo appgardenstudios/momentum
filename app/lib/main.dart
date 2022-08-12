@@ -82,10 +82,9 @@ class AppRouterDelegate extends RouterDelegate<AppRoutePath>
     return Navigator(
       key: navigatorKey,
       pages: [
-        if (currentConfiguration.isNewProjectPage)
-          const NewProjectPage()
-        else
-          HomePage(this),
+        HomePage(this),
+        if (currentConfiguration.isNewProjectPage) NewProjectPage(this)
+        // else
       ],
       onPopPage: (route, result) {
         if (!route.didPop(result)) {

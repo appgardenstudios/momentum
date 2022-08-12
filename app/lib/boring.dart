@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+// https://material.io/design/typography/the-type-system.html#type-scale
+
 class BoringH1 extends StatelessWidget {
   const BoringH1(this.text, {Key? key, this.textAlign = TextAlign.start})
       : super(key: key);
@@ -11,7 +13,8 @@ class BoringH1 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       text,
-      style: const TextStyle(fontSize: 24),
+      style: const TextStyle(
+          fontSize: 96, fontWeight: FontWeight.w300, letterSpacing: -1.5),
       textAlign: textAlign,
     );
   }
@@ -28,22 +31,151 @@ class BoringH2 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       text,
-      style: const TextStyle(fontSize: 20),
+      style: const TextStyle(
+          fontSize: 60, fontWeight: FontWeight.w300, letterSpacing: -0.5),
       textAlign: textAlign,
     );
   }
 }
 
-class BoringP extends StatelessWidget {
-  const BoringP(this.text, {Key? key}) : super(key: key);
+class BoringH3 extends StatelessWidget {
+  const BoringH3(this.text, {Key? key, this.textAlign = TextAlign.start})
+      : super(key: key);
 
   final String text;
+  final TextAlign textAlign;
 
   @override
   Widget build(BuildContext context) {
     return Text(
       text,
-      style: const TextStyle(fontSize: 16),
+      style: const TextStyle(fontSize: 48, fontWeight: FontWeight.w400),
+      textAlign: textAlign,
+    );
+  }
+}
+
+class BoringH4 extends StatelessWidget {
+  const BoringH4(this.text, {Key? key, this.textAlign = TextAlign.start})
+      : super(key: key);
+
+  final String text;
+  final TextAlign textAlign;
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      text,
+      style: const TextStyle(
+          fontSize: 34, fontWeight: FontWeight.w400, letterSpacing: 0.25),
+      textAlign: textAlign,
+    );
+  }
+}
+
+class BoringH5 extends StatelessWidget {
+  const BoringH5(this.text, {Key? key, this.textAlign = TextAlign.start})
+      : super(key: key);
+
+  final String text;
+  final TextAlign textAlign;
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      text,
+      style: const TextStyle(fontSize: 24, fontWeight: FontWeight.w400),
+      textAlign: textAlign,
+    );
+  }
+}
+
+class BoringH6 extends StatelessWidget {
+  const BoringH6(this.text, {Key? key, this.textAlign = TextAlign.start})
+      : super(key: key);
+
+  final String text;
+  final TextAlign textAlign;
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      text,
+      style: const TextStyle(
+          fontSize: 20, fontWeight: FontWeight.w500, letterSpacing: 0.15),
+      textAlign: textAlign,
+    );
+  }
+}
+
+class BoringSubtitle extends StatelessWidget {
+  const BoringSubtitle(this.text, {Key? key, this.textAlign = TextAlign.start})
+      : super(key: key);
+
+  final String text;
+  final TextAlign textAlign;
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      text,
+      style: const TextStyle(
+          fontSize: 14, fontWeight: FontWeight.w500, letterSpacing: 0.1),
+      textAlign: textAlign,
+    );
+  }
+}
+
+class BoringText extends StatelessWidget {
+  const BoringText(this.text, {Key? key, this.textAlign = TextAlign.start})
+      : super(key: key);
+
+  final String text;
+  final TextAlign textAlign;
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      text,
+      style: const TextStyle(
+          fontSize: 16, fontWeight: FontWeight.w400, letterSpacing: 0.5),
+      textAlign: textAlign,
+    );
+  }
+}
+
+class BoringCaption extends StatelessWidget {
+  const BoringCaption(this.text, {Key? key, this.textAlign = TextAlign.start})
+      : super(key: key);
+
+  final String text;
+  final TextAlign textAlign;
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      text,
+      style: const TextStyle(
+          fontSize: 12, fontWeight: FontWeight.w400, letterSpacing: 0.4),
+      textAlign: textAlign,
+    );
+  }
+}
+
+class BoringOverline extends StatelessWidget {
+  const BoringOverline(this.text, {Key? key, this.textAlign = TextAlign.start})
+      : super(key: key);
+
+  final String text;
+  final TextAlign textAlign;
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      text,
+      style: const TextStyle(
+          fontSize: 10, fontWeight: FontWeight.w400, letterSpacing: 1.5),
+      textAlign: textAlign,
     );
   }
 }
@@ -54,9 +186,12 @@ class BoringInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const TextField(
+      style: TextStyle(
+          fontSize: 16, fontWeight: FontWeight.w400, letterSpacing: 0.5),
       decoration: InputDecoration(
         border: OutlineInputBorder(),
         labelText: '',
+        contentPadding: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
       ),
     );
   }
@@ -70,11 +205,8 @@ enum BoringButtonRole {
 }
 
 class BoringButton extends StatelessWidget {
-  const BoringButton(
-      {Key? key,
-      this.text = '',
-      this.role = BoringButtonRole.primary,
-      this.onPressed})
+  const BoringButton(this.text,
+      {Key? key, this.role = BoringButtonRole.primary, this.onPressed})
       : super(key: key);
 
   final String text;
@@ -85,11 +217,37 @@ class BoringButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
-        textStyle: const TextStyle(fontSize: 16),
+        textStyle: const TextStyle(
+            fontSize: 16, fontWeight: FontWeight.w400, letterSpacing: 1.25),
         padding: const EdgeInsets.all(16.0),
       ),
       onPressed: onPressed,
       child: Text(text),
+    );
+  }
+}
+
+class BoringLink extends StatelessWidget {
+  const BoringLink(this.text, {Key? key, this.onPressed}) : super(key: key);
+
+  final String text;
+  final void Function()? onPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    return TextButton(
+      style: TextButton.styleFrom(
+        textStyle: const TextStyle(
+            fontSize: 16, fontWeight: FontWeight.w400, letterSpacing: 1.25),
+        padding: const EdgeInsets.all(0.0),
+      ),
+      onPressed: onPressed,
+      child: Text(
+        text,
+        style: const TextStyle(
+          decoration: TextDecoration.underline,
+        ),
+      ),
     );
   }
 }
