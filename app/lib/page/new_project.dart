@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:momentum/main.dart';
 import 'package:momentum/boring.dart';
+import 'package:momentum/wren.dart';
 
 class NewProjectPage extends Page {
   const NewProjectPage(this.d, {Key? key})
@@ -33,6 +34,10 @@ class _NewPageScreenState extends State<NewPageScreen> {
   final String nameError = '';
   final String timeError = '';
   final String saveError = '';
+
+  _createProject() async {
+    await Wren.createProject(name: 'Test', taskTime: '30 min');
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -81,7 +86,7 @@ class _NewPageScreenState extends State<NewPageScreen> {
                         onPressed: () =>
                             {widget.d.navigate(AppRoutePath.home)}),
                     const Spacer(),
-                    BoringButton('Go', onPressed: () => {})
+                    BoringButton('Go', onPressed: _createProject)
                   ],
                 ),
                 BoringCaption(

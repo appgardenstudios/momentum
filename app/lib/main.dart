@@ -1,9 +1,21 @@
+import 'dart:io' show Directory;
+
 import 'package:flutter/material.dart';
+import 'dart:developer';
+import 'package:path/path.dart';
+import 'package:path_provider/path_provider.dart';
 
 import 'package:momentum/page/home.dart';
 import 'package:momentum/page/new_project.dart';
+import 'package:momentum/wren.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  final Directory result = await getApplicationSupportDirectory();
+  log(result.absolute.path);
+  Wren.init(path: join(result.path, 'momentum.db'));
+
   runApp(const MyApp());
 }
 
