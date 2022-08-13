@@ -181,17 +181,45 @@ class BoringOverline extends StatelessWidget {
 }
 
 class BoringTextField extends StatelessWidget {
-  const BoringTextField({Key? key}) : super(key: key);
+  const BoringTextField({Key? key, this.hint}) : super(key: key);
+
+  final String? hint;
 
   @override
   Widget build(BuildContext context) {
-    return const TextField(
-      style: TextStyle(
+    return TextField(
+      style: const TextStyle(
           fontSize: 16, fontWeight: FontWeight.w400, letterSpacing: 0.5),
       decoration: InputDecoration(
-        border: OutlineInputBorder(),
-        labelText: '',
-        contentPadding: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+        border: const OutlineInputBorder(),
+        hintText: hint,
+        contentPadding:
+            const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+      ),
+    );
+  }
+}
+
+class BoringTextFormField extends StatelessWidget {
+  const BoringTextFormField({Key? key, this.validator, this.onSaved, this.hint})
+      : super(key: key);
+
+  final String? Function(String?)? validator;
+  final void Function(String?)? onSaved;
+  final String? hint;
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      validator: validator,
+      onSaved: onSaved,
+      style: const TextStyle(
+          fontSize: 16, fontWeight: FontWeight.w400, letterSpacing: 0.5),
+      decoration: InputDecoration(
+        border: const OutlineInputBorder(),
+        hintText: hint,
+        contentPadding:
+            const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
       ),
     );
   }
