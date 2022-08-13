@@ -13,22 +13,22 @@ class HomePage extends Page {
     return MaterialPageRoute(
       settings: this,
       builder: (BuildContext context) {
-        return HomeWidget(d);
+        return HomeScreen(d);
       },
     );
   }
 }
 
-class HomeWidget extends StatefulWidget {
-  const HomeWidget(this.d, {Key? key}) : super(key: key);
+class HomeScreen extends StatefulWidget {
+  const HomeScreen(this.d, {Key? key}) : super(key: key);
 
   final AppRouterDelegate d;
 
   @override
-  State<HomeWidget> createState() => _HomeWidgetState();
+  State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeWidgetState extends State<HomeWidget> {
+class _HomeScreenState extends State<HomeScreen> {
   _createProject() {
     widget.d.navigate(AppRoutePath.newProject);
   }

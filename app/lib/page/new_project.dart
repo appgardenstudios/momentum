@@ -15,22 +15,22 @@ class NewProjectPage extends Page {
     return MaterialPageRoute(
       settings: this,
       builder: (BuildContext context) {
-        return NewPageScreen(d);
+        return NewProjectScreen(d);
       },
     );
   }
 }
 
-class NewPageScreen extends StatefulWidget {
-  const NewPageScreen(this.d, {Key? key}) : super(key: key);
+class NewProjectScreen extends StatefulWidget {
+  const NewProjectScreen(this.d, {Key? key}) : super(key: key);
 
   final AppRouterDelegate d;
 
   @override
-  State<NewPageScreen> createState() => _NewPageScreenState();
+  State<NewProjectScreen> createState() => _NewProjectScreenState();
 }
 
-class _NewPageScreenState extends State<NewPageScreen> {
+class _NewProjectScreenState extends State<NewProjectScreen> {
   final String nameError = '';
   final String timeError = '';
   final String saveError = '';
