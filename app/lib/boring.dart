@@ -180,8 +180,8 @@ class BoringOverline extends StatelessWidget {
   }
 }
 
-class BoringInput extends StatelessWidget {
-  const BoringInput({Key? key}) : super(key: key);
+class BoringTextField extends StatelessWidget {
+  const BoringTextField({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -66,7 +66,7 @@ class _NewProjectScreenState extends State<NewProjectScreen> {
                         'It can be a working name, an actual name, or a silly made-up name.')),
                 const Padding(
                   padding: EdgeInsets.only(top: 4),
-                  child: BoringInput(),
+                  child: BoringTextField(),
                 ),
                 BoringCaption(nameError),
                 const BoringH6(
@@ -77,7 +77,7 @@ class _NewProjectScreenState extends State<NewProjectScreen> {
                         'This should be the amount of time you would like to spend working on your project every day in a single session.')),
                 const Padding(
                   padding: EdgeInsets.only(top: 4),
-                  child: BoringInput(),
+                  child: BoringTextField(),
                 ),
                 BoringCaption(timeError),
                 Row(
