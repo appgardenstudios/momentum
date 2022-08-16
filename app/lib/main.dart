@@ -14,7 +14,7 @@ void main() async {
 
   final Directory result = await getApplicationSupportDirectory();
   log(result.absolute.path);
-  Wren.init(path: join(result.path, 'momentum.db'));
+  await Wren.init(path: join(result.path, 'momentum.db'));
 
   runApp(const MyApp());
 }
@@ -102,9 +102,8 @@ class AppRouterDelegate extends RouterDelegate<AppRoutePath>
         if (!route.didPop(result)) {
           return false;
         }
-
+        // TODO set pages correctly by updating current path
         notifyListeners();
-
         return true;
       },
     );

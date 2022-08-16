@@ -1,5 +1,6 @@
 import 'package:sqflite/sqflite.dart';
 import 'package:uuid/uuid.dart';
+import 'package:momentum/data/project.dart';
 
 class Wren {
   static Wren? _instance;
@@ -31,13 +32,34 @@ class Wren {
     );
   }
 
-  static Future<void> createProject(
+  static Future<String> createProject(
       {required String name, required String taskTime}) async {
+    var id = Wren.instance.uuid.v4();
     await Wren.instance._database.insert('projects', {
-      'id': Wren.instance.uuid.v4(),
+      'id': id,
       'name': name,
       'task_time': taskTime,
       'created_on': DateTime.now().toIso8601String(),
     });
+
+    return id;
+  }
+
+  static Future<Project?> getProject() async {
+    List<Map> result = await Wren.instance._database.query(
+      'projects',
+      columns: ['id', 'name', 'task_time', 'created_on'],
+      limit: 1,
+    );
+    if (result.isNotEmpty) {
+      var item = result.first;
+      return Project(
+        id: item['id'],
+        name: item['name'],
+        taskTime: item['task_time'],
+        createdOn: item['created_on'],
+      );
+    }
+    return null;
   }
 }

@@ -42,8 +42,9 @@ class _NewProjectScreenState extends State<NewProjectScreen> {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
       // TODO Handle save errors
-      await Wren.createProject(name: projectName, taskTime: projectTaskTime);
-      widget.d.navigate(AppRoutePath.home);
+      var id = await Wren.createProject(
+          name: projectName, taskTime: projectTaskTime);
+      widget.d.navigate('${AppRoutePath.home}?project=$id');
     }
   }
 
