@@ -37,7 +37,6 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       loading = true;
     });
-    // TODO handle error
     var p = await Wren.getProject();
     setState(() {
       loading = false;

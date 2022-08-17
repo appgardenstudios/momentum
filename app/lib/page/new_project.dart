@@ -12,31 +12,20 @@ class NewProjectPage extends StatefulWidget {
 }
 
 class _NewProjectPageState extends State<NewProjectPage> {
-  String saveError = '';
-
   String projectName = '';
   String projectTaskTime = '';
 
   final _formKey = GlobalKey<FormState>();
 
   _createProject() async {
-    setState(() {
-      saveError = '';
-    });
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
-      try {
-        var id = await Wren.createProject(
-            name: projectName, taskTime: projectTaskTime);
 
-        if (!mounted) return;
-        GoRouter.of(context).go('/?project=$id');
-      } catch (err) {
-        // TODO log error
-        setState(() {
-          saveError = 'Could not save. Please try again.';
-        });
-      }
+      var id = await Wren.createProject(
+          name: projectName, taskTime: projectTaskTime);
+
+      if (!mounted) return;
+      GoRouter.of(context).go('/?project=$id');
     }
   }
 
@@ -111,13 +100,6 @@ class _NewProjectPageState extends State<NewProjectPage> {
                             const Spacer(),
                             BoringButton('Go', onPressed: _createProject)
                           ],
-                        )),
-                    Padding(
-                        padding: const EdgeInsets.only(top: 8),
-                        child: BoringCaption(
-                          saveError,
-                          textAlign: TextAlign.end,
-                          color: const Color(0xffd32f2f),
                         )),
                   ],
                 ))),
