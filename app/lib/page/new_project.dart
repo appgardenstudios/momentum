@@ -12,7 +12,7 @@ class NewProjectPage extends StatefulWidget {
 }
 
 class _NewProjectPageState extends State<NewProjectPage> {
-  final String saveError = '';
+  String saveError = '';
 
   String projectName = '';
   String projectTaskTime = '';
@@ -20,14 +20,22 @@ class _NewProjectPageState extends State<NewProjectPage> {
   final _formKey = GlobalKey<FormState>();
 
   _createProject() async {
+    setState(() {
+      saveError = '';
+    });
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
-      // TODO Handle save errors
-      var id = await Wren.createProject(
-          name: projectName, taskTime: projectTaskTime);
-      // TODO find a better way of doing this
-      // ignore: use_build_context_synchronously
-      GoRouter.of(context).go('/?project=$id');
+      try {
+        var id = await Wren.createProject(
+            name: projectName, taskTime: projectTaskTime);
+
+        if (!mounted) return;
+        GoRouter.of(context).go('/?project=$id');
+      } catch (err) {
+        setState(() {
+          saveError = 'Could not save. Please try again.';
+        });
+      }
     }
   }
 
@@ -103,10 +111,13 @@ class _NewProjectPageState extends State<NewProjectPage> {
                             BoringButton('Go', onPressed: _createProject)
                           ],
                         )),
-                    BoringCaption(
-                      saveError,
-                      textAlign: TextAlign.end,
-                    ),
+                    Padding(
+                        padding: const EdgeInsets.only(top: 8),
+                        child: BoringCaption(
+                          saveError,
+                          textAlign: TextAlign.end,
+                          color: const Color(0xffd32f2f),
+                        )),
                   ],
                 ))),
       ),

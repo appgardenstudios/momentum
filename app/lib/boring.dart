@@ -145,18 +145,23 @@ class BoringText extends StatelessWidget {
 }
 
 class BoringCaption extends StatelessWidget {
-  const BoringCaption(this.text, {Key? key, this.textAlign = TextAlign.start})
+  const BoringCaption(this.text,
+      {Key? key, this.textAlign = TextAlign.start, this.color})
       : super(key: key);
 
   final String text;
   final TextAlign textAlign;
+  final Color? color;
 
   @override
   Widget build(BuildContext context) {
     return Text(
       text,
-      style: const TextStyle(
-          fontSize: 12, fontWeight: FontWeight.w400, letterSpacing: 0.4),
+      style: TextStyle(
+          fontSize: 12,
+          fontWeight: FontWeight.w400,
+          letterSpacing: 0.4,
+          color: color),
       textAlign: textAlign,
     );
   }
