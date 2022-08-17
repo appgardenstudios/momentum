@@ -45,10 +45,6 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  _createProject() {
-    context.go('/new-project');
-  }
-
   @override
   Widget build(BuildContext context) {
     if (loading) {
@@ -91,7 +87,7 @@ class _HomePageState extends State<HomePage> {
                 )),
             BoringButton(
               'Create Project',
-              onPressed: _createProject,
+              onPressed: () => context.go('/new-project'),
             ),
           ],
         ),
@@ -105,10 +101,39 @@ class _HomePageState extends State<HomePage> {
         title: Text(project!.name),
         centerTitle: false,
       ),
-      body: const Center(
-        child: BoringText(
-          'Project Loaded',
-          textAlign: TextAlign.center,
+      body: Center(
+        child: Container(
+          padding: const EdgeInsets.only(top: 8),
+          constraints: const BoxConstraints(
+            minWidth: 100,
+            maxWidth: 320,
+            minHeight: double.infinity,
+            maxHeight: double.infinity,
+          ),
+          child: ListView(padding: const EdgeInsets.all(8), children: <Widget>[
+            BoringCard(
+                child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const BoringH5('The Next Thing'),
+                const Padding(
+                    padding: EdgeInsets.only(top: 4),
+                    child: BoringText(
+                        'Set the next thing you need to do by creating a task.')),
+                Padding(
+                    padding: const EdgeInsets.only(top: 8),
+                    child: Row(
+                      children: [
+                        const Spacer(),
+                        BoringButton(
+                          'Create Task',
+                          onPressed: () => context.go('/new-task'),
+                        ),
+                      ],
+                    )),
+              ],
+            )),
+          ]),
         ),
       ),
     );

@@ -32,6 +32,7 @@ class _NewProjectPageState extends State<NewProjectPage> {
         if (!mounted) return;
         GoRouter.of(context).go('/?project=$id');
       } catch (err) {
+        // TODO log error
         setState(() {
           saveError = 'Could not save. Please try again.';
         });

@@ -8,6 +8,7 @@ import 'package:path_provider/path_provider.dart';
 
 import 'package:momentum/page/home.dart';
 import 'package:momentum/page/new_project.dart';
+import 'package:momentum/page/new_task.dart';
 import 'package:momentum/wren.dart';
 
 void main() async {
@@ -35,6 +36,10 @@ class App extends StatelessWidget {
           GoRoute(
             path: 'new-project',
             builder: (context, state) => const NewProjectPage(),
+          ),
+          GoRoute(
+            path: 'new-task',
+            builder: (context, state) => const NewTaskPage(),
           ),
         ],
       ),

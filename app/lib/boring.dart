@@ -284,3 +284,23 @@ class BoringLink extends StatelessWidget {
     );
   }
 }
+
+class BoringCard extends StatelessWidget {
+  const BoringCard({Key? key, required this.child}) : super(key: key);
+
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      elevation: 0,
+      shape: const RoundedRectangleBorder(
+        side: BorderSide(
+          color: Colors.black38,
+        ),
+        borderRadius: BorderRadius.all(Radius.circular(12)),
+      ),
+      child: Padding(padding: const EdgeInsets.all(12), child: child),
+    );
+  }
+}
