@@ -1,36 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
-import 'package:momentum/main.dart';
 import 'package:momentum/boring.dart';
 import 'package:momentum/wren.dart';
 import 'package:momentum/data/project.dart';
 
-class HomePage extends Page {
-  const HomePage(this.d, {Key? key}) : super(key: const ValueKey("/"));
+class HomePage extends StatefulWidget {
+  const HomePage({required this.projectId, Key? key}) : super(key: key);
 
-  final AppRouterDelegate d;
-
-  @override
-  Route createRoute(BuildContext context) {
-    return MaterialPageRoute(
-      settings: this,
-      builder: (BuildContext context) {
-        return HomeScreen(d);
-      },
-    );
-  }
-}
-
-class HomeScreen extends StatefulWidget {
-  const HomeScreen(this.d, {Key? key}) : super(key: key);
-
-  final AppRouterDelegate d;
+  final String? projectId;
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<HomePage> createState() => _HomePageState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomePageState extends State<HomePage> {
   bool loading = true;
   Project? project;
 
@@ -40,7 +24,19 @@ class _HomeScreenState extends State<HomeScreen> {
     _getProject();
   }
 
+  @override
+  void didUpdateWidget(covariant HomePage oldWidget) {
+    super.didUpdateWidget(oldWidget);
+
+    if (widget.projectId != oldWidget.projectId) {
+      _getProject();
+    }
+  }
+
   void _getProject() async {
+    setState(() {
+      loading = true;
+    });
     // TODO handle error
     var p = await Wren.getProject();
     setState(() {
@@ -50,7 +46,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   _createProject() {
-    widget.d.navigate(AppRoutePath.newProject);
+    context.go('/new-project');
   }
 
   @override

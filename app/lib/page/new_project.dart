@@ -1,36 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
-import 'package:momentum/main.dart';
 import 'package:momentum/boring.dart';
 import 'package:momentum/wren.dart';
 
-class NewProjectPage extends Page {
-  const NewProjectPage(this.d, {Key? key})
-      : super(key: const ValueKey("/new-project"));
-
-  final AppRouterDelegate d;
+class NewProjectPage extends StatefulWidget {
+  const NewProjectPage({Key? key}) : super(key: key);
 
   @override
-  Route createRoute(BuildContext context) {
-    return MaterialPageRoute(
-      settings: this,
-      builder: (BuildContext context) {
-        return NewProjectScreen(d);
-      },
-    );
-  }
+  State<NewProjectPage> createState() => _NewProjectPageState();
 }
 
-class NewProjectScreen extends StatefulWidget {
-  const NewProjectScreen(this.d, {Key? key}) : super(key: key);
-
-  final AppRouterDelegate d;
-
-  @override
-  State<NewProjectScreen> createState() => _NewProjectScreenState();
-}
-
-class _NewProjectScreenState extends State<NewProjectScreen> {
+class _NewProjectPageState extends State<NewProjectPage> {
   final String saveError = '';
 
   String projectName = '';
@@ -44,7 +25,9 @@ class _NewProjectScreenState extends State<NewProjectScreen> {
       // TODO Handle save errors
       var id = await Wren.createProject(
           name: projectName, taskTime: projectTaskTime);
-      widget.d.navigate('${AppRoutePath.home}?project=$id');
+      // TODO find a better way of doing this
+      // ignore: use_build_context_synchronously
+      GoRouter.of(context).go('/?project=$id');
     }
   }
 
@@ -115,7 +98,7 @@ class _NewProjectScreenState extends State<NewProjectScreen> {
                           children: [
                             BoringLink('Cancel',
                                 onPressed: () =>
-                                    {widget.d.navigate(AppRoutePath.home)}),
+                                    {GoRouter.of(context).go('/')}),
                             const Spacer(),
                             BoringButton('Go', onPressed: _createProject)
                           ],

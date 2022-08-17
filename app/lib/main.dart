@@ -1,7 +1,8 @@
 import 'dart:io' show Directory;
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'dart:developer';
+import 'package:go_router/go_router.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -16,20 +17,29 @@ void main() async {
   log(result.absolute.path);
   await Wren.init(path: join(result.path, 'momentum.db'));
 
-  runApp(const MyApp());
+  runApp(App());
 }
 
-class MyApp extends StatefulWidget {
-  const MyApp({Key? key}) : super(key: key);
+class App extends StatelessWidget {
+  App({Key? key}) : super(key: key);
 
-  @override
-  State<StatefulWidget> createState() => _MyAppState();
-}
+  static const title = 'GoRouter Example: Declarative Routes';
 
-class _MyAppState extends State<MyApp> {
-  final AppRouterDelegate _routerDelegate = AppRouterDelegate();
-  final AppRouteInformationParser _routeInformationParser =
-      AppRouteInformationParser();
+  late final _router = GoRouter(
+    routes: [
+      GoRoute(
+        path: '/',
+        builder: (context, state) =>
+            HomePage(projectId: state.queryParams['project']),
+        routes: [
+          GoRoute(
+            path: 'new-project',
+            builder: (context, state) => const NewProjectPage(),
+          ),
+        ],
+      ),
+    ],
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -39,84 +49,9 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      routerDelegate: _routerDelegate,
-      routeInformationParser: _routeInformationParser,
+      routeInformationParser: _router.routeInformationParser,
+      routeInformationProvider: _router.routeInformationProvider,
+      routerDelegate: _router.routerDelegate,
     );
-  }
-}
-
-class AppRoutePath {
-  static const String home = '/';
-  static const String newProject = '/new-project';
-
-  final String path;
-
-  const AppRoutePath(this.path);
-
-  bool get isHomePage => path == home;
-  bool get isNewProjectPage => path == newProject;
-}
-
-class AppRouteInformationParser extends RouteInformationParser<AppRoutePath> {
-  @override
-  Future<AppRoutePath> parseRouteInformation(
-      RouteInformation routeInformation) async {
-    final uri = Uri.parse(routeInformation.location!);
-    return AppRoutePath(uri.path);
-  }
-
-  @override
-  RouteInformation restoreRouteInformation(AppRoutePath configuration) {
-    return RouteInformation(location: configuration.path);
-  }
-}
-
-class AppRouterDelegate extends RouterDelegate<AppRoutePath>
-    with ChangeNotifier, PopNavigatorRouterDelegateMixin<AppRoutePath> {
-  @override
-  final GlobalKey<NavigatorState> navigatorKey;
-
-  AppRoutePath? currentPath;
-
-  AppRouterDelegate() : navigatorKey = GlobalKey<NavigatorState>();
-
-  @override
-  AppRoutePath get currentConfiguration {
-    // If no current path, default to the home page
-    if (currentPath == null) {
-      return const AppRoutePath(AppRoutePath.home);
-    }
-    return currentPath!;
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Navigator(
-      key: navigatorKey,
-      pages: [
-        HomePage(this),
-        if (currentConfiguration.isNewProjectPage) NewProjectPage(this)
-        // else
-      ],
-      onPopPage: (route, result) {
-        if (!route.didPop(result)) {
-          return false;
-        }
-        // TODO set pages correctly by updating current path
-        notifyListeners();
-        return true;
-      },
-    );
-  }
-
-  @override
-  Future<void> setNewRoutePath(AppRoutePath configuration) async {
-    currentPath = configuration;
-    notifyListeners();
-  }
-
-  void navigate(String path) {
-    currentPath = AppRoutePath(path);
-    notifyListeners();
   }
 }
