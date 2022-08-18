@@ -4,11 +4,14 @@ import 'package:go_router/go_router.dart';
 import 'package:momentum/boring.dart';
 import 'package:momentum/wren.dart';
 import 'package:momentum/data/project.dart';
+import 'package:momentum/data/task.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({required this.projectId, Key? key}) : super(key: key);
+  const HomePage({required this.projectId, required this.taskId, Key? key})
+      : super(key: key);
 
   final String? projectId;
+  final String? taskId;
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -17,30 +20,34 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   bool loading = true;
   Project? project;
+  List<Task>? tasks;
 
   @override
   void initState() {
     super.initState();
-    _getProject();
+    _getData();
   }
 
   @override
   void didUpdateWidget(covariant HomePage oldWidget) {
     super.didUpdateWidget(oldWidget);
 
-    if (widget.projectId != oldWidget.projectId) {
-      _getProject();
+    if (widget.projectId != oldWidget.projectId ||
+        widget.taskId != oldWidget.taskId) {
+      _getData();
     }
   }
 
-  void _getProject() async {
+  void _getData() async {
     setState(() {
       loading = true;
     });
     var p = await Wren.getProject();
+    var t = await Wren.getTasks();
     setState(() {
       loading = false;
       project = p;
+      tasks = t;
     });
   }
 
@@ -95,6 +102,62 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget projectView(BuildContext context) {
+    List<Widget> taskWidgets = [];
+    taskWidgets.addAll(tasks!.map((t) => BoringCard(
+            child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            BoringH5(t.name),
+            Padding(
+                padding: const EdgeInsets.only(top: 4),
+                child: BoringText(t.description)),
+            Padding(
+                padding: const EdgeInsets.only(top: 8),
+                child: Row(
+                  children: [
+                    BoringLink('View',
+                        onPressed: () => {context.go('/task?id=${t.id}')}),
+                    const Spacer(),
+                    BoringButton(
+                      'Done',
+                      onPressed: () =>
+                          context.go('/complete-task?task=${t.id}'),
+                    ),
+                  ],
+                )),
+          ],
+        ))));
+
+    if (taskWidgets.length < 3) {
+      taskWidgets.add(BoringCard(
+          child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const BoringH5('The Next Thing'),
+          const Padding(
+              padding: EdgeInsets.only(top: 4),
+              child: BoringText(
+                  'Set the next thing you need to do by creating a task.')),
+          Padding(
+              padding: const EdgeInsets.only(top: 8),
+              child: Row(
+                children: [
+                  const Spacer(),
+                  BoringButton(
+                    'Create Task',
+                    onPressed: () => context.go('/new-task'),
+                  ),
+                ],
+              )),
+        ],
+      )));
+    } else {
+      taskWidgets.add(const Padding(
+          padding: EdgeInsets.only(top: 4),
+          child: Center(
+              child: BoringCaption('Complete a task before adding another.'))));
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: Text(project!.name),
@@ -109,30 +172,10 @@ class _HomePageState extends State<HomePage> {
             minHeight: double.infinity,
             maxHeight: double.infinity,
           ),
-          child: ListView(padding: const EdgeInsets.all(8), children: <Widget>[
-            BoringCard(
-                child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const BoringH5('The Next Thing'),
-                const Padding(
-                    padding: EdgeInsets.only(top: 4),
-                    child: BoringText(
-                        'Set the next thing you need to do by creating a task.')),
-                Padding(
-                    padding: const EdgeInsets.only(top: 8),
-                    child: Row(
-                      children: [
-                        const Spacer(),
-                        BoringButton(
-                          'Create Task',
-                          onPressed: () => context.go('/new-task'),
-                        ),
-                      ],
-                    )),
-              ],
-            )),
-          ]),
+          child: ListView(
+            padding: const EdgeInsets.all(8),
+            children: taskWidgets,
+          ),
         ),
       ),
     );

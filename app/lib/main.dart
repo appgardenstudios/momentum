@@ -51,8 +51,9 @@ class App extends StatelessWidget {
     routes: [
       GoRoute(
         path: '/',
-        builder: (context, state) =>
-            HomePage(projectId: state.queryParams['project']),
+        builder: (context, state) => HomePage(
+            projectId: state.queryParams['project'],
+            taskId: state.queryParams['task']),
         routes: [
           GoRoute(
             path: 'new-project',

@@ -1,6 +1,7 @@
 import 'package:sqflite/sqflite.dart';
 import 'package:uuid/uuid.dart';
 import 'package:momentum/data/project.dart';
+import 'package:momentum/data/task.dart';
 
 class Wren {
   static Wren? _instance;
@@ -84,5 +85,24 @@ class Wren {
     });
 
     return id;
+  }
+
+  static Future<List<Task>> getTasks() async {
+    List<Map> result = await Wren.instance._database.query(
+      'tasks',
+      columns: ['id', 'name', 'description', 'status', 'created_on'],
+      where: 'status = ?',
+      whereArgs: ['open'],
+      limit: 3,
+    );
+    return result
+        .map((item) => Task(
+              id: item['id'],
+              name: item['name'],
+              description: item['description'],
+              status: item['status'],
+              createdOn: item['created_on'],
+            ))
+        .toList();
   }
 }
