@@ -18,12 +18,21 @@ class Wren {
   static Future<void> init({required String path}) async {
     Wren.instance._database = await openDatabase(
       path,
-      onCreate: (db, version) {
-        return db.execute('''
+      onCreate: (db, version) async {
+        await db.execute('''
           CREATE TABLE projects (
             id TEXT PRIMARY KEY,
             name TEXT,
             task_time TEXT,
+            created_on TEXT
+          )
+        ''');
+        await db.execute('''
+          CREATE TABLE tasks (
+            id TEXT PRIMARY KEY,
+            name TEXT,
+            description TEXT,
+            status TEXT,
             created_on TEXT
           )
         ''');
@@ -61,5 +70,19 @@ class Wren {
       );
     }
     return null;
+  }
+
+  static Future<String> createTask(
+      {required String name, required String description}) async {
+    var id = Wren.instance.uuid.v4();
+    await Wren.instance._database.insert('tasks', {
+      'id': id,
+      'name': name,
+      'description': description,
+      'status': 'open',
+      'created_on': DateTime.now().toIso8601String(),
+    });
+
+    return id;
   }
 }

@@ -95,8 +95,7 @@ class _NewProjectPageState extends State<NewProjectPage> {
                         child: Row(
                           children: [
                             BoringLink('Cancel',
-                                onPressed: () =>
-                                    {GoRouter.of(context).go('/')}),
+                                onPressed: () => {context.go('/')}),
                             const Spacer(),
                             BoringButton('Go', onPressed: _createProject)
                           ],
