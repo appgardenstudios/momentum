@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:uuid/uuid.dart';
 
 import 'package:momentum/page/home.dart';
 import 'package:momentum/page/new_project.dart';
@@ -45,15 +46,17 @@ void main() async {
 class App extends StatelessWidget {
   App({Key? key}) : super(key: key);
 
-  static const title = 'GoRouter Example: Declarative Routes';
+  var uuid = const Uuid();
 
   late final _router = GoRouter(
     routes: [
       GoRoute(
         path: '/',
         builder: (context, state) => HomePage(
-            projectId: state.queryParams['project'],
-            taskId: state.queryParams['task']),
+          // Always rebuild the home page after navigating elsewhere
+          // TODO there has to be a better way
+          key: ValueKey(uuid.v4()),
+        ),
         routes: [
           GoRoute(
             path: 'new-project',

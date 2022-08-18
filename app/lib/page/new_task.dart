@@ -42,11 +42,10 @@ class _NewTaskPageState extends State<NewTaskPage> {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
 
-      var id =
-          await Wren.createTask(name: taskName, description: taskDescription);
+      await Wren.createTask(name: taskName, description: taskDescription);
 
       if (!mounted) return;
-      GoRouter.of(context).go('/?task=$id');
+      GoRouter.of(context).go('/');
     }
   }
 

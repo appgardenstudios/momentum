@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -7,11 +9,7 @@ import 'package:momentum/data/project.dart';
 import 'package:momentum/data/task.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({required this.projectId, required this.taskId, Key? key})
-      : super(key: key);
-
-  final String? projectId;
-  final String? taskId;
+  const HomePage({Key? key}) : super(key: key);
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -25,17 +23,8 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
+    log('initState');
     _getData();
-  }
-
-  @override
-  void didUpdateWidget(covariant HomePage oldWidget) {
-    super.didUpdateWidget(oldWidget);
-
-    if (widget.projectId != oldWidget.projectId ||
-        widget.taskId != oldWidget.taskId) {
-      _getData();
-    }
   }
 
   void _getData() async {
