@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:momentum/boring.dart';
+import 'package:momentum/data/project.dart';
 import 'package:momentum/wren.dart';
 
 class NewTaskPage extends StatefulWidget {
@@ -12,10 +13,30 @@ class NewTaskPage extends StatefulWidget {
 }
 
 class _NewTaskPageState extends State<NewTaskPage> {
+  bool loading = true;
+  Project? project;
+
   String taskName = '';
   String taskDescription = '';
 
   final _formKey = GlobalKey<FormState>();
+
+  @override
+  void initState() {
+    super.initState();
+    _getProject();
+  }
+
+  void _getProject() async {
+    setState(() {
+      loading = true;
+    });
+    var p = await Wren.getProject();
+    setState(() {
+      loading = false;
+      project = p;
+    });
+  }
 
   _createTask() async {
     if (_formKey.currentState!.validate()) {
@@ -31,6 +52,25 @@ class _NewTaskPageState extends State<NewTaskPage> {
 
   @override
   Widget build(BuildContext context) {
+    if (loading) {
+      return loadingView(context);
+    }
+    return formView(context);
+  }
+
+  Widget loadingView(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Welcome!'),
+        centerTitle: false,
+      ),
+      body: const Center(
+        child: CircularProgressIndicator(),
+      ),
+    );
+  }
+
+  Widget formView(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('New Project'),
@@ -53,10 +93,10 @@ class _NewTaskPageState extends State<NewTaskPage> {
                         padding: EdgeInsets.only(top: 16),
                         child:
                             BoringH6('What is the next thing you need to do?')),
-                    const Padding(
-                        padding: EdgeInsets.only(left: 8),
+                    Padding(
+                        padding: const EdgeInsets.only(left: 8),
                         child: BoringText(
-                            'Remember, you need to be able to complete this in 30 minutes!')),
+                            'Remember, you need to be able to complete this in ${project!.taskTime}!')),
                     Padding(
                       padding: const EdgeInsets.only(top: 4),
                       child: BoringTextFormField(
