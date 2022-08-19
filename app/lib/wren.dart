@@ -105,4 +105,13 @@ class Wren {
             ))
         .toList();
   }
+
+  static Future<void> markTaskAsDone(String id) async {
+    await Wren.instance._database.update(
+      'tasks',
+      {'status': 'done'},
+      where: 'id = ?',
+      whereArgs: [id],
+    );
+  }
 }

@@ -33,6 +33,7 @@ class _HomePageState extends State<HomePage> {
     });
     var p = await Wren.getProject();
     var t = await Wren.getTasks();
+    if (!mounted) return;
     setState(() {
       loading = false;
       project = p;
@@ -105,12 +106,11 @@ class _HomePageState extends State<HomePage> {
                 child: Row(
                   children: [
                     BoringLink('View',
-                        onPressed: () => {context.go('/task?id=${t.id}')}),
+                        onPressed: () => {context.go('/task/${t.id}')}),
                     const Spacer(),
                     BoringButton(
                       'Done',
-                      onPressed: () =>
-                          context.go('/complete-task?task=${t.id}'),
+                      onPressed: () => context.go('/task/${t.id}/complete'),
                     ),
                   ],
                 )),

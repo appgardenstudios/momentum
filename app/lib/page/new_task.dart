@@ -45,7 +45,7 @@ class _NewTaskPageState extends State<NewTaskPage> {
       await Wren.createTask(name: taskName, description: taskDescription);
 
       if (!mounted) return;
-      GoRouter.of(context).go('/');
+      context.go('/');
     }
   }
 
@@ -62,6 +62,7 @@ class _NewTaskPageState extends State<NewTaskPage> {
       appBar: AppBar(
         title: const Text('Welcome!'),
         centerTitle: false,
+        automaticallyImplyLeading: false,
       ),
       body: const Center(
         child: CircularProgressIndicator(),
@@ -115,7 +116,7 @@ class _NewTaskPageState extends State<NewTaskPage> {
                     const Padding(
                         padding: EdgeInsets.only(left: 8),
                         child: BoringText(
-                            'Go ahead and jot down some details and thoughts.')),
+                            'Is there anything you need to remember that you need to get out of your head?')),
                     Padding(
                       padding: const EdgeInsets.only(top: 4),
                       child: BoringTextFormField(
