@@ -106,6 +106,27 @@ class Wren {
         .toList();
   }
 
+  static Future<Task?> getTask(String id) async {
+    List<Map> result = await Wren.instance._database.query(
+      'tasks',
+      columns: ['id', 'name', 'description', 'status', 'created_on'],
+      where: 'id = ?',
+      whereArgs: [id],
+      limit: 1,
+    );
+    if (result.isNotEmpty) {
+      var item = result.first;
+      return Task(
+        id: item['id'],
+        name: item['name'],
+        description: item['description'],
+        status: item['status'],
+        createdOn: item['created_on'],
+      );
+    }
+    return null;
+  }
+
   static Future<void> markTaskAsDone(String id) async {
     await Wren.instance._database.update(
       'tasks',
