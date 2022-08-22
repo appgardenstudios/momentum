@@ -105,7 +105,7 @@ class _HomePageState extends State<HomePage> {
                 padding: const EdgeInsets.only(top: 8),
                 child: Row(
                   children: [
-                    BoringLink('View',
+                    BoringLink('Edit',
                         onPressed: () => {context.go('/task/${t.id}')}),
                     const Spacer(),
                     BoringButton(

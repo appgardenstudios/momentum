@@ -206,16 +206,19 @@ class BoringTextField extends StatelessWidget {
 }
 
 class BoringTextFormField extends StatelessWidget {
-  const BoringTextFormField({Key? key, this.validator, this.onSaved, this.hint})
+  const BoringTextFormField(
+      {Key? key, this.validator, this.onSaved, this.hint, this.initialValue})
       : super(key: key);
 
   final String? Function(String?)? validator;
   final void Function(String?)? onSaved;
   final String? hint;
+  final String? initialValue;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      initialValue: initialValue,
       validator: validator,
       onSaved: onSaved,
       style: const TextStyle(

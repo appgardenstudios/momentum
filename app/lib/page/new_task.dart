@@ -132,7 +132,7 @@ class _NewTaskPageState extends State<NewTaskPage> {
                         child: Row(
                           children: [
                             BoringLink('Cancel',
-                                onPressed: () => {context.pop()}),
+                                onPressed: () => {context.go('/')}),
                             const Spacer(),
                             BoringButton('Go', onPressed: _createTask)
                           ],

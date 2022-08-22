@@ -135,4 +135,16 @@ class Wren {
       whereArgs: [id],
     );
   }
+
+  static Future<void> updateTask(
+      {required String id,
+      required String name,
+      required String description}) async {
+    await Wren.instance._database.update(
+      'tasks',
+      {'name': name, 'description': description},
+      where: 'id = ?',
+      whereArgs: [id],
+    );
+  }
 }

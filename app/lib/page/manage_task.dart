@@ -16,8 +16,12 @@ class ManageTaskPage extends StatefulWidget {
 
 class _ManageTaskPageState extends State<ManageTaskPage> {
   bool loading = true;
-  ManageTaskMode mode = ManageTaskMode.view;
+  bool deleting = false;
   Task? task;
+
+  final _formKey = GlobalKey<FormState>();
+  String taskName = '';
+  String taskDescription = '';
 
   @override
   void initState() {
@@ -36,12 +40,24 @@ class _ManageTaskPageState extends State<ManageTaskPage> {
     });
   }
 
+  _saveTask() async {
+    if (_formKey.currentState!.validate()) {
+      _formKey.currentState!.save();
+
+      await Wren.updateTask(
+          id: task!.id, name: taskName, description: taskDescription);
+
+      if (!mounted) return;
+      context.go('/');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     if (loading) {
       return loadingView(context);
     }
-    return taskView(context);
+    return editView(context);
   }
 
   Widget loadingView(BuildContext context) {
@@ -57,10 +73,10 @@ class _ManageTaskPageState extends State<ManageTaskPage> {
     );
   }
 
-  Widget taskView(BuildContext context) {
+  Widget editView(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('View Task'),
+        title: const Text('Edit Task'),
         centerTitle: false,
         automaticallyImplyLeading: false,
       ),
@@ -72,55 +88,65 @@ class _ManageTaskPageState extends State<ManageTaskPage> {
               minHeight: double.infinity,
               maxHeight: double.infinity,
             ),
-            child: ListView(
-              children: [
-                Padding(
-                    padding: const EdgeInsets.only(top: 4),
-                    child: Row(
-                      children: [
-                        const BoringH6('Name'),
-                        const Spacer(),
-                        BoringLink('Edit',
-                            onPressed: () => {
-                                  setState(
-                                    () => mode = ManageTaskMode.edit,
-                                  )
-                                }),
-                      ],
-                    )),
-                Padding(
-                    padding: const EdgeInsets.only(left: 8),
-                    child: BoringText(task!.name)),
-                const Padding(
-                    padding: EdgeInsets.only(top: 16),
-                    child: BoringH6('Description')),
-                Padding(
-                    padding: const EdgeInsets.only(left: 8),
-                    child: BoringText(task!.description)),
-                Padding(
-                    padding: const EdgeInsets.only(top: 4),
-                    child: Row(
-                      children: [
-                        BoringLink('Delete',
-                            onPressed: () => {
-                                  setState(
-                                    () => mode = ManageTaskMode.delete,
-                                  )
-                                }),
-                        const Spacer(),
-                        BoringButton('Back',
-                            onPressed: () => {context.go('/')}),
-                      ],
-                    )),
-              ],
-            )),
+            child: Form(
+                key: _formKey,
+                child: ListView(
+                  children: [
+                    Padding(
+                        padding: const EdgeInsets.only(top: 16),
+                        child: Row(
+                          children: [
+                            const BoringH6('Name'),
+                            const Spacer(),
+                            BoringLink('Delete',
+                                onPressed: () => {
+                                      setState(
+                                        () => deleting = true,
+                                      )
+                                    }),
+                          ],
+                        )),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 4),
+                      child: BoringTextFormField(
+                        initialValue: task!.name,
+                        hint: 'Task Name',
+                        onSaved: (value) => taskName = value!,
+                        validator: (value) {
+                          if (value == null ||
+                              value.isEmpty ||
+                              value.length > 32) {
+                            return 'Must be between 1 and 32 characters';
+                          }
+                          return null;
+                        },
+                      ),
+                    ),
+                    const BoringH6('Description'),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 4),
+                      child: BoringTextFormField(
+                        initialValue: task!.description,
+                        hint: 'Task Details',
+                        onSaved: (value) => taskDescription = value ?? '',
+                        validator: (value) {
+                          return null;
+                        },
+                      ),
+                    ),
+                    Padding(
+                        padding: const EdgeInsets.only(top: 4),
+                        child: Row(
+                          children: [
+                            BoringLink('Cancel',
+                                onPressed: () => {context.go('/')}),
+                            const Spacer(),
+                            BoringButton('Save', onPressed: _saveTask)
+                          ],
+                        )),
+                  ],
+                ))),
       ),
     );
   }
-}
-
-enum ManageTaskMode {
-  view,
-  edit,
-  delete,
 }
