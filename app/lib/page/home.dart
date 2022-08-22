@@ -151,6 +151,13 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: Text(project!.name),
         centerTitle: false,
+        actions: <Widget>[
+          IconButton(
+            icon: const Icon(Icons.settings),
+            tooltip: 'Manage Project',
+            onPressed: () => context.go('/project/${project!.id}'),
+          ),
+        ],
       ),
       body: Center(
         child: Container(

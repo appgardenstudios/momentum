@@ -73,7 +73,7 @@ class _ManageTaskPageState extends State<ManageTaskPage> {
   Widget loadingView(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('View Task'),
+        title: const Text('Edit Task'),
         centerTitle: false,
         automaticallyImplyLeading: false,
       ),

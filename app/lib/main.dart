@@ -11,6 +11,7 @@ import 'package:uuid/uuid.dart';
 
 import 'package:momentum/page/home.dart';
 import 'package:momentum/page/new_project.dart';
+import 'package:momentum/page/manage_project.dart';
 import 'package:momentum/page/new_task.dart';
 import 'package:momentum/page/manage_task.dart';
 import 'package:momentum/page/complete_task.dart';
@@ -78,6 +79,12 @@ class App extends StatelessWidget {
             path: 'task/:taskId/complete',
             builder: (context, state) => CompleteTaskPage(
               taskId: state.params['taskId']!,
+            ),
+          ),
+          GoRoute(
+            path: 'project/:projectId',
+            builder: (context, state) => ManageProjectPage(
+              projectId: state.params['projectId']!,
             ),
           ),
         ],
