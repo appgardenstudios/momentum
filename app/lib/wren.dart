@@ -127,10 +127,11 @@ class Wren {
     return null;
   }
 
-  static Future<void> markTaskAsDone(String id) async {
+  static Future<void> updateTaskStatus(
+      {required String id, required String status}) async {
     await Wren.instance._database.update(
       'tasks',
-      {'status': 'done'},
+      {'status': status},
       where: 'id = ?',
       whereArgs: [id],
     );

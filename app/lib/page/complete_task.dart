@@ -24,7 +24,7 @@ class _CompleteTaskPageState extends State<CompleteTaskPage> {
   }
 
   void _updateTask() async {
-    await Wren.markTaskAsDone(widget.taskId);
+    await Wren.updateTaskStatus(id: widget.taskId, status: 'done');
     if (!mounted) return;
     context.go('/');
   }

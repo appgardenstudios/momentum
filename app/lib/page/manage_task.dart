@@ -52,10 +52,20 @@ class _ManageTaskPageState extends State<ManageTaskPage> {
     }
   }
 
+  void _deleteTask() async {
+    await Wren.updateTaskStatus(id: widget.taskId, status: 'deleted');
+
+    if (!mounted) return;
+    context.go('/');
+  }
+
   @override
   Widget build(BuildContext context) {
     if (loading) {
       return loadingView(context);
+    }
+    if (deleting) {
+      return deleteView(context);
     }
     return editView(context);
   }
@@ -142,6 +152,51 @@ class _ManageTaskPageState extends State<ManageTaskPage> {
                                 onPressed: () => {context.go('/')}),
                             const Spacer(),
                             BoringButton('Save', onPressed: _saveTask)
+                          ],
+                        )),
+                  ],
+                ))),
+      ),
+    );
+  }
+
+  Widget deleteView(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Delete Task'),
+        centerTitle: false,
+        automaticallyImplyLeading: false,
+      ),
+      body: Center(
+        child: Container(
+            constraints: const BoxConstraints(
+              minWidth: 100,
+              maxWidth: 320,
+              minHeight: double.infinity,
+              maxHeight: double.infinity,
+            ),
+            child: Form(
+                key: _formKey,
+                child: ListView(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(top: 16),
+                      child: BoringH6('Delete ${task!.name}?'),
+                    ),
+                    Padding(
+                        padding: const EdgeInsets.only(top: 16),
+                        child: Row(
+                          children: [
+                            const BoringText('Are you sure?'),
+                            const Spacer(),
+                            BoringButton('No',
+                                onPressed: () => {
+                                      setState(
+                                        () => deleting = false,
+                                      )
+                                    }),
+                            const Spacer(),
+                            BoringButton('Yes', onPressed: _deleteTask),
                           ],
                         )),
                   ],
