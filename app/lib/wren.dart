@@ -73,6 +73,18 @@ class Wren {
     return null;
   }
 
+  static Future<void> updateProject(
+      {required String id,
+      required String name,
+      required String taskTime}) async {
+    await Wren.instance._database.update(
+      'projects',
+      {'name': name, 'task_time': taskTime},
+      where: 'id = ?',
+      whereArgs: [id],
+    );
+  }
+
   static Future<String> createTask(
       {required String name, required String description}) async {
     var id = Wren.instance.uuid.v4();
