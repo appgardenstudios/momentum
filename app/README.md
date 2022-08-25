@@ -15,6 +15,19 @@ For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
 
+## Run
+
+### Mac OS
+```
+flutter run -d macos
+```
+
+### iOS Device
+```
+flutter devices
+# Get device id
+```
+
 ## Rebuild icons
 
 Replace icon in assets/icon.png (1024x1024)
