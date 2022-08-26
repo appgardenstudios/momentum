@@ -255,7 +255,7 @@ class BoringButton extends StatelessWidget {
       style: ElevatedButton.styleFrom(
         textStyle: const TextStyle(
             fontSize: 16, fontWeight: FontWeight.w400, letterSpacing: 1.25),
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 12),
       ),
       onPressed: onPressed,
       child: Text(text),
@@ -275,7 +275,7 @@ class BoringLink extends StatelessWidget {
       style: TextButton.styleFrom(
         textStyle: const TextStyle(
             fontSize: 16, fontWeight: FontWeight.w400, letterSpacing: 1.25),
-        padding: const EdgeInsets.all(0.0),
+        padding: const EdgeInsets.all(0),
       ),
       onPressed: onPressed,
       child: Text(
@@ -296,14 +296,14 @@ class BoringCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      elevation: 0,
-      shape: const RoundedRectangleBorder(
-        side: BorderSide(
-          color: Colors.black38,
-        ),
-        borderRadius: BorderRadius.all(Radius.circular(12)),
-      ),
-      child: Padding(padding: const EdgeInsets.all(12), child: child),
+      elevation: 2,
+      // shape: const RoundedRectangleBorder(
+      //   side: BorderSide(
+      //     color: Colors.black38,
+      //   ),
+      //   borderRadius: BorderRadius.all(Radius.circular(12)),
+      // ),
+      child: Padding(padding: const EdgeInsets.all(16), child: child),
     );
   }
 }

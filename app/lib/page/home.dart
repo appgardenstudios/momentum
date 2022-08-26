@@ -102,7 +102,7 @@ class _HomePageState extends State<HomePage> {
                 padding: const EdgeInsets.only(top: 4),
                 child: BoringText(t.description)),
             Padding(
-                padding: const EdgeInsets.only(top: 8),
+                padding: const EdgeInsets.only(top: 16),
                 child: Row(
                   children: [
                     BoringLink('Edit',
@@ -128,7 +128,7 @@ class _HomePageState extends State<HomePage> {
               child: BoringText(
                   'Set the next thing you need to do by creating a task.')),
           Padding(
-              padding: const EdgeInsets.only(top: 8),
+              padding: const EdgeInsets.only(top: 12),
               child: Row(
                 children: [
                   const Spacer(),
@@ -168,10 +168,19 @@ class _HomePageState extends State<HomePage> {
             minHeight: double.infinity,
             maxHeight: double.infinity,
           ),
-          child: ListView(
+          child: ListView.separated(
             padding: const EdgeInsets.all(8),
-            children: taskWidgets,
+            itemCount: taskWidgets.length,
+            separatorBuilder: (BuildContext context, int index) =>
+                const SizedBox(height: 8),
+            itemBuilder: (BuildContext context, int index) {
+              return taskWidgets.elementAt(index);
+            },
           ),
+          // child: ListView(
+          //   padding: const EdgeInsets.all(8),
+          //   children: taskWidgets,
+          // ),
         ),
       ),
     );
