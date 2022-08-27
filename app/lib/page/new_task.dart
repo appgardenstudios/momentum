@@ -60,7 +60,7 @@ class _NewTaskPageState extends State<NewTaskPage> {
   Widget loadingView(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Welcome!'),
+        title: const Text('New Task'),
         centerTitle: false,
         automaticallyImplyLeading: false,
       ),
@@ -73,7 +73,7 @@ class _NewTaskPageState extends State<NewTaskPage> {
   Widget formView(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('New Project'),
+        title: const Text('New Task'),
         centerTitle: false,
         automaticallyImplyLeading: false,
       ),
@@ -94,11 +94,11 @@ class _NewTaskPageState extends State<NewTaskPage> {
                         child:
                             BoringH6('What is the next thing you need to do?')),
                     Padding(
-                        padding: const EdgeInsets.only(left: 8),
+                        padding: const EdgeInsets.only(top: 4, left: 8),
                         child: BoringText(
                             'Remember, you need to be able to complete this in ${project!.taskTime}!')),
                     Padding(
-                      padding: const EdgeInsets.only(top: 4),
+                      padding: const EdgeInsets.only(top: 8),
                       child: BoringTextFormField(
                         hint: 'Task Name',
                         onSaved: (value) => taskName = value!,
@@ -112,13 +112,16 @@ class _NewTaskPageState extends State<NewTaskPage> {
                         },
                       ),
                     ),
-                    const BoringH6('Any other details or thoughts?'),
                     const Padding(
-                        padding: EdgeInsets.only(left: 8),
+                      padding: EdgeInsets.only(top: 16),
+                      child: BoringH6('Any other details or thoughts?'),
+                    ),
+                    const Padding(
+                        padding: EdgeInsets.only(top: 4, left: 8),
                         child: BoringText(
                             'Is there anything you need to remember that you need to get out of your head?')),
                     Padding(
-                      padding: const EdgeInsets.only(top: 4),
+                      padding: const EdgeInsets.only(top: 8),
                       child: BoringTextFormField(
                         hint: 'Task Details',
                         onSaved: (value) => taskDescription = value ?? '',
@@ -128,7 +131,7 @@ class _NewTaskPageState extends State<NewTaskPage> {
                       ),
                     ),
                     Padding(
-                        padding: const EdgeInsets.only(top: 4),
+                        padding: const EdgeInsets.only(top: 16),
                         child: Row(
                           children: [
                             BoringLink('Cancel',

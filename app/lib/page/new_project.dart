@@ -52,11 +52,11 @@ class _NewProjectPageState extends State<NewProjectPage> {
                         padding: EdgeInsets.only(top: 16),
                         child: BoringH6('What is your project named?')),
                     const Padding(
-                        padding: EdgeInsets.only(left: 8),
+                        padding: EdgeInsets.only(top: 4, left: 8),
                         child: BoringText(
                             'It can be a working name, an actual name, or a silly made-up name.')),
                     Padding(
-                      padding: const EdgeInsets.only(top: 4),
+                      padding: const EdgeInsets.only(top: 8),
                       child: BoringTextFormField(
                         hint: 'My Project',
                         onSaved: (value) => projectName = value!,
@@ -70,16 +70,19 @@ class _NewProjectPageState extends State<NewProjectPage> {
                         },
                       ),
                     ),
-                    const BoringH6(
-                        'How much time can you devote to a single task?'),
                     const Padding(
-                        padding: EdgeInsets.only(left: 8),
+                      padding: EdgeInsets.only(top: 16),
+                      child: BoringH6(
+                          'How much time can you devote to a single task?'),
+                    ),
+                    const Padding(
+                        padding: EdgeInsets.only(top: 4, left: 8),
                         child: BoringText(
                             'This should be the amount of time you would like to spend working on your project every day in a single session.')),
                     Padding(
-                      padding: const EdgeInsets.only(top: 4),
+                      padding: const EdgeInsets.only(top: 8),
                       child: BoringTextFormField(
-                        hint: '30 Minutes',
+                        hint: '30 minutes',
                         onSaved: (value) => projectTaskTime = value!,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
@@ -90,7 +93,7 @@ class _NewProjectPageState extends State<NewProjectPage> {
                       ),
                     ),
                     Padding(
-                        padding: const EdgeInsets.only(top: 4),
+                        padding: const EdgeInsets.only(top: 16),
                         child: Row(
                           children: [
                             BoringLink('Cancel',
