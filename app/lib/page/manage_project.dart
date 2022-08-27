@@ -96,7 +96,7 @@ class _ManageProjectPageState extends State<ManageProjectPage> {
                         padding: EdgeInsets.only(top: 16),
                         child: BoringH6('Name')),
                     Padding(
-                      padding: const EdgeInsets.only(top: 4),
+                      padding: const EdgeInsets.only(top: 8),
                       child: BoringTextFormField(
                         initialValue: project!.name,
                         hint: 'Project Name',
@@ -116,7 +116,7 @@ class _ManageProjectPageState extends State<ManageProjectPage> {
                       child: BoringH6('Task Time'),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(top: 4),
+                      padding: const EdgeInsets.only(top: 8),
                       child: BoringTextFormField(
                         initialValue: project!.taskTime,
                         hint: 'Task Details',

@@ -117,7 +117,7 @@ class _ManageTaskPageState extends State<ManageTaskPage> {
                           ],
                         )),
                     Padding(
-                      padding: const EdgeInsets.only(top: 4),
+                      padding: const EdgeInsets.only(top: 8),
                       child: BoringTextFormField(
                         initialValue: task!.name,
                         hint: 'Task Name',
@@ -132,9 +132,12 @@ class _ManageTaskPageState extends State<ManageTaskPage> {
                         },
                       ),
                     ),
-                    const BoringH6('Description'),
+                    const Padding(
+                      padding: EdgeInsets.only(top: 16),
+                      child: BoringH6('Description'),
+                    ),
                     Padding(
-                      padding: const EdgeInsets.only(top: 4),
+                      padding: const EdgeInsets.only(top: 8),
                       child: BoringTextFormField(
                         initialValue: task!.description,
                         hint: 'Task Details',
@@ -145,7 +148,7 @@ class _ManageTaskPageState extends State<ManageTaskPage> {
                       ),
                     ),
                     Padding(
-                        padding: const EdgeInsets.only(top: 4),
+                        padding: const EdgeInsets.only(top: 16),
                         child: Row(
                           children: [
                             BoringLink('Cancel',
