@@ -42,7 +42,8 @@ class _NewTaskPageState extends State<NewTaskPage> {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
 
-      await Wren.createTask(name: taskName, description: taskDescription);
+      await Wren.createTask(
+          projectId: project!.id, name: taskName, description: taskDescription);
 
       if (!mounted) return;
       context.go('/');

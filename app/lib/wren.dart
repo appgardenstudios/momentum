@@ -24,6 +24,7 @@ class Wren {
           CREATE TABLE projects (
             id TEXT PRIMARY KEY,
             name TEXT,
+            status TEXT,
             task_time TEXT,
             created_on TEXT
           )
@@ -31,9 +32,10 @@ class Wren {
         await db.execute('''
           CREATE TABLE tasks (
             id TEXT PRIMARY KEY,
+            project_id TEXT,
             name TEXT,
-            description TEXT,
             status TEXT,
+            description TEXT,
             created_on TEXT
           )
         ''');
@@ -48,6 +50,7 @@ class Wren {
     await Wren.instance._database.insert('projects', {
       'id': id,
       'name': name,
+      'status': 'open',
       'task_time': taskTime,
       'created_on': DateTime.now().toIso8601String(),
     });
@@ -58,7 +61,9 @@ class Wren {
   static Future<Project?> getProject() async {
     List<Map> result = await Wren.instance._database.query(
       'projects',
-      columns: ['id', 'name', 'task_time', 'created_on'],
+      columns: ['id', 'name', 'status', 'task_time', 'created_on'],
+      where: 'status = ?',
+      whereArgs: ['open'],
       limit: 1,
     );
     if (result.isNotEmpty) {
@@ -66,6 +71,7 @@ class Wren {
       return Project(
         id: item['id'],
         name: item['name'],
+        status: item['status'],
         taskTime: item['task_time'],
         createdOn: item['created_on'],
       );
@@ -86,13 +92,16 @@ class Wren {
   }
 
   static Future<String> createTask(
-      {required String name, required String description}) async {
+      {required String projectId,
+      required String name,
+      required String description}) async {
     var id = Wren.instance.uuid.v4();
     await Wren.instance._database.insert('tasks', {
       'id': id,
+      'project_id': projectId,
       'name': name,
-      'description': description,
       'status': 'open',
+      'description': description,
       'created_on': DateTime.now().toIso8601String(),
     });
 
@@ -102,7 +111,14 @@ class Wren {
   static Future<List<Task>> getTasks() async {
     List<Map> result = await Wren.instance._database.query(
       'tasks',
-      columns: ['id', 'name', 'description', 'status', 'created_on'],
+      columns: [
+        'id',
+        'project_id',
+        'name',
+        'status',
+        'description',
+        'created_on'
+      ],
       where: 'status = ?',
       whereArgs: ['open'],
       limit: 3,
@@ -110,9 +126,10 @@ class Wren {
     return result
         .map((item) => Task(
               id: item['id'],
+              projectId: item['project_id'],
               name: item['name'],
-              description: item['description'],
               status: item['status'],
+              description: item['description'],
               createdOn: item['created_on'],
             ))
         .toList();
@@ -121,7 +138,14 @@ class Wren {
   static Future<Task?> getTask(String id) async {
     List<Map> result = await Wren.instance._database.query(
       'tasks',
-      columns: ['id', 'name', 'description', 'status', 'created_on'],
+      columns: [
+        'id',
+        'project_id',
+        'name',
+        'status',
+        'description',
+        'created_on'
+      ],
       where: 'id = ?',
       whereArgs: [id],
       limit: 1,
@@ -130,9 +154,10 @@ class Wren {
       var item = result.first;
       return Task(
         id: item['id'],
+        projectId: item['project_id'],
         name: item['name'],
-        description: item['description'],
         status: item['status'],
+        description: item['description'],
         createdOn: item['created_on'],
       );
     }
