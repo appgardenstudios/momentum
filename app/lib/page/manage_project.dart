@@ -52,12 +52,6 @@ class _ManageProjectPageState extends State<ManageProjectPage> {
     }
   }
 
-  void _closeProject() async {
-    await Wren.updateProjectStatus(id: widget.projectId, status: 'done');
-    if (!mounted) return;
-    context.go('/');
-  }
-
   @override
   Widget build(BuildContext context) {
     if (loading) {
@@ -147,13 +141,11 @@ class _ManageProjectPageState extends State<ManageProjectPage> {
                         )),
                     Padding(
                       padding: const EdgeInsets.only(top: 64),
-                      child: Column(
-                        children: [
-                          const BoringH6('Project Done?'),
-                          const SizedBox(height: 8),
-                          BoringButton('Complete', onPressed: _closeProject)
-                        ],
-                      ),
+                      child: BoringLink('Project Complete?',
+                          onPressed: () => {
+                                context
+                                    .go('/project/${widget.projectId}/complete')
+                              }),
                     ),
                   ],
                 ))),

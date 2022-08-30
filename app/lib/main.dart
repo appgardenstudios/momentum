@@ -12,6 +12,7 @@ import 'package:uuid/uuid.dart';
 import 'package:momentum/page/home.dart';
 import 'package:momentum/page/new_project.dart';
 import 'package:momentum/page/manage_project.dart';
+import 'package:momentum/page/complete_project.dart';
 import 'package:momentum/page/new_task.dart';
 import 'package:momentum/page/manage_task.dart';
 import 'package:momentum/page/complete_task.dart';
@@ -86,6 +87,14 @@ class App extends StatelessWidget {
             builder: (context, state) => ManageProjectPage(
               projectId: state.params['projectId']!,
             ),
+            routes: [
+              GoRoute(
+                path: 'complete',
+                builder: (context, state) => CompleteProjectPage(
+                  projectId: state.params['projectId']!,
+                ),
+              ),
+            ],
           ),
         ],
       ),
