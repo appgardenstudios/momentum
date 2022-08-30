@@ -91,6 +91,22 @@ class Wren {
     );
   }
 
+  static Future<void> updateProjectStatus(
+      {required String id, required String status}) async {
+    await Wren.instance._database.update(
+      'tasks',
+      {'status': status},
+      where: 'project_id = ?',
+      whereArgs: [id],
+    );
+    await Wren.instance._database.update(
+      'projects',
+      {'status': status},
+      where: 'id = ?',
+      whereArgs: [id],
+    );
+  }
+
   static Future<String> createTask(
       {required String projectId,
       required String name,
