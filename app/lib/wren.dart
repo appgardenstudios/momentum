@@ -30,6 +30,10 @@ class Wren {
           )
         ''');
         await db.execute('''
+          CREATE INDEX idx_projects_status
+          ON projects(status)
+        ''');
+        await db.execute('''
           CREATE TABLE tasks (
             id TEXT PRIMARY KEY,
             project_id TEXT,
@@ -38,6 +42,10 @@ class Wren {
             description TEXT,
             created_on TEXT
           )
+        ''');
+        await db.execute('''
+          CREATE INDEX idx_tasks_status
+          ON tasks(status)
         ''');
       },
       version: 1,
@@ -96,8 +104,8 @@ class Wren {
     await Wren.instance._database.update(
       'tasks',
       {'status': status},
-      where: 'project_id = ?',
-      whereArgs: [id],
+      where: 'project_id = ? AND status = ?',
+      whereArgs: [id, 'open'],
     );
     await Wren.instance._database.update(
       'projects',
