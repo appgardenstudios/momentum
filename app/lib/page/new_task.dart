@@ -102,11 +102,11 @@ class _NewTaskPageState extends State<NewTaskPage> {
                       padding: const EdgeInsets.only(top: 8),
                       child: BoringTextFormField(
                         hint: 'Task Name',
-                        onSaved: (value) => taskName = value!,
+                        onSaved: (value) => taskName = value!.trim(),
                         validator: (value) {
                           if (value == null ||
-                              value.isEmpty ||
-                              value.length > 32) {
+                              value.trim().isEmpty ||
+                              value.trim().length > 32) {
                             return 'Must be between 1 and 32 characters';
                           }
                           return null;
@@ -125,7 +125,8 @@ class _NewTaskPageState extends State<NewTaskPage> {
                       padding: const EdgeInsets.only(top: 8),
                       child: BoringTextFormField(
                         hint: 'Task Details',
-                        onSaved: (value) => taskDescription = value ?? '',
+                        onSaved: (value) =>
+                            taskDescription = value != null ? value.trim() : '',
                         validator: (value) {
                           return null;
                         },

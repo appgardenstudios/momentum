@@ -59,11 +59,11 @@ class _NewProjectPageState extends State<NewProjectPage> {
                       padding: const EdgeInsets.only(top: 8),
                       child: BoringTextFormField(
                         hint: 'My Project',
-                        onSaved: (value) => projectName = value!,
+                        onSaved: (value) => projectName = value!.trim(),
                         validator: (value) {
                           if (value == null ||
-                              value.isEmpty ||
-                              value.length > 32) {
+                              value.trim().isEmpty ||
+                              value.trim().length > 32) {
                             return 'Must be between 1 and 32 characters';
                           }
                           return null;
@@ -83,9 +83,9 @@ class _NewProjectPageState extends State<NewProjectPage> {
                       padding: const EdgeInsets.only(top: 8),
                       child: BoringTextFormField(
                         hint: '30 minutes',
-                        onSaved: (value) => projectTaskTime = value!,
+                        onSaved: (value) => projectTaskTime = value!.trim(),
                         validator: (value) {
-                          if (value == null || value.isEmpty) {
+                          if (value == null || value.trim().isEmpty) {
                             return 'Must not be blank';
                           }
                           return null;

@@ -121,11 +121,11 @@ class _ManageTaskPageState extends State<ManageTaskPage> {
                       child: BoringTextFormField(
                         initialValue: task!.name,
                         hint: 'Task Name',
-                        onSaved: (value) => taskName = value!,
+                        onSaved: (value) => taskName = value!.trim(),
                         validator: (value) {
                           if (value == null ||
-                              value.isEmpty ||
-                              value.length > 32) {
+                              value.trim().isEmpty ||
+                              value.trim().length > 32) {
                             return 'Must be between 1 and 32 characters';
                           }
                           return null;
@@ -141,7 +141,8 @@ class _ManageTaskPageState extends State<ManageTaskPage> {
                       child: BoringTextFormField(
                         initialValue: task!.description,
                         hint: 'Task Details',
-                        onSaved: (value) => taskDescription = value ?? '',
+                        onSaved: (value) =>
+                            taskDescription = value != null ? value.trim() : '',
                         validator: (value) {
                           return null;
                         },

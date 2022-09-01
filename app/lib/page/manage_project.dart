@@ -100,11 +100,11 @@ class _ManageProjectPageState extends State<ManageProjectPage> {
                       child: BoringTextFormField(
                         initialValue: project!.name,
                         hint: 'Project Name',
-                        onSaved: (value) => projectName = value!,
+                        onSaved: (value) => projectName = value!.trim(),
                         validator: (value) {
                           if (value == null ||
-                              value.isEmpty ||
-                              value.length > 32) {
+                              value.trim().isEmpty ||
+                              value.trim().length > 32) {
                             return 'Must be between 1 and 32 characters';
                           }
                           return null;
@@ -120,9 +120,9 @@ class _ManageProjectPageState extends State<ManageProjectPage> {
                       child: BoringTextFormField(
                         initialValue: project!.taskTime,
                         hint: 'Task Details',
-                        onSaved: (value) => projectTaskTime = value!,
+                        onSaved: (value) => projectTaskTime = value!.trim(),
                         validator: (value) {
-                          if (value == null || value.isEmpty) {
+                          if (value == null || value.trim().isEmpty) {
                             return 'Must not be blank';
                           }
                           return null;
