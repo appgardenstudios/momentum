@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 
 import 'package:momentum/boring.dart';
 import 'package:momentum/wren.dart';
@@ -147,42 +148,76 @@ class _HomePageState extends State<HomePage> {
               child: BoringCaption('Complete a task before adding another.'))));
     }
 
+    var appBar = AppBar(
+      title: Text(project!.name),
+      centerTitle: false,
+      actions: <Widget>[
+        IconButton(
+          icon: const Icon(Icons.settings),
+          tooltip: 'Manage Project',
+          onPressed: () => context.go('/project/${project!.id}'),
+        ),
+      ],
+    );
+
     return Scaffold(
-      appBar: AppBar(
-        title: Text(project!.name),
-        centerTitle: false,
-        actions: <Widget>[
-          IconButton(
-            icon: const Icon(Icons.settings),
-            tooltip: 'Manage Project',
-            onPressed: () => context.go('/project/${project!.id}'),
-          ),
-        ],
-      ),
+      appBar: appBar,
       body: Center(
         child: Container(
-          padding: const EdgeInsets.only(top: 8),
           constraints: const BoxConstraints(
             minWidth: 100,
             maxWidth: 320,
             minHeight: double.infinity,
             maxHeight: double.infinity,
           ),
-          child: ListView.separated(
-            padding: const EdgeInsets.all(8),
-            itemCount: taskWidgets.length,
-            separatorBuilder: (BuildContext context, int index) =>
-                const SizedBox(height: 8),
-            itemBuilder: (BuildContext context, int index) {
-              return taskWidgets.elementAt(index);
-            },
-          ),
-          // child: ListView(
-          //   padding: const EdgeInsets.all(8),
-          //   children: taskWidgets,
-          // ),
+          child: Column(children: [
+            Expanded(
+              child: CarouselSlider(
+                  items: [
+                    ListView.separated(
+                      padding: const EdgeInsets.all(8),
+                      itemCount: taskWidgets.length,
+                      separatorBuilder: (BuildContext context, int index) =>
+                          const SizedBox(height: 8),
+                      itemBuilder: (BuildContext context, int index) {
+                        return taskWidgets.elementAt(index);
+                      },
+                    ),
+                  ],
+                  options: CarouselOptions(
+                    height: MediaQuery.of(context).size.height -
+                        -appBar.preferredSize.height -
+                        MediaQuery.of(context).padding.top,
+                    viewportFraction: 1,
+                    enableInfiniteScroll: false,
+                  )),
+            ),
+            // Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+            //   Text("Navigator area"),
+            // ]),
+          ]),
         ),
       ),
+      // body: Center(
+      //   child: Container(
+      //     padding: const EdgeInsets.only(top: 8),
+      //     constraints: const BoxConstraints(
+      //       minWidth: 100,
+      //       maxWidth: 320,
+      //       minHeight: double.infinity,
+      //       maxHeight: double.infinity,
+      //     ),
+      //     child: ListView.separated(
+      //       padding: const EdgeInsets.all(8),
+      //       itemCount: taskWidgets.length,
+      //       separatorBuilder: (BuildContext context, int index) =>
+      //           const SizedBox(height: 8),
+      //       itemBuilder: (BuildContext context, int index) {
+      //         return taskWidgets.elementAt(index);
+      //       },
+      //     ),
+      //   ),
+      // ),
     );
   }
 }
