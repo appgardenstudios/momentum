@@ -19,7 +19,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   bool loading = true;
   List<Project> projects = [];
-  int currentProject = 0;
+  int currentOffset = 0;
   Map<String, List<Task>> tasks = {};
 
   @override
@@ -95,18 +95,27 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget projectView(BuildContext context) {
-    var appBar = AppBar(
-      title: Text(projects[currentProject].name),
-      centerTitle: false,
-      actions: <Widget>[
-        IconButton(
-          icon: const Icon(Icons.settings),
-          tooltip: 'Manage Project',
-          onPressed: () =>
-              context.go('/project/${projects[currentProject].id}'),
-        ),
-      ],
-    );
+    AppBar appBar;
+    if (currentOffset < projects.length) {
+      appBar = AppBar(
+        title: Text(projects[currentOffset].name),
+        centerTitle: false,
+        actions: <Widget>[
+          IconButton(
+            icon: const Icon(Icons.settings),
+            tooltip: 'Manage Project',
+            onPressed: (() {
+              context.go('/project/${projects[currentOffset].id}');
+            }),
+          ),
+        ],
+      );
+    } else {
+      appBar = AppBar(
+        title: const Text('New Project'),
+        centerTitle: false,
+      );
+    }
 
     return Scaffold(
       appBar: appBar,
@@ -121,14 +130,20 @@ class _HomePageState extends State<HomePage> {
           child: Column(children: [
             Expanded(
               child: CarouselSlider(
-                  items: getProjectWidgets(context),
-                  options: CarouselOptions(
-                    height: MediaQuery.of(context).size.height -
-                        -appBar.preferredSize.height -
-                        MediaQuery.of(context).padding.top,
-                    viewportFraction: 1,
-                    enableInfiniteScroll: false,
-                  )),
+                items: getProjectWidgets(context),
+                options: CarouselOptions(
+                  height: MediaQuery.of(context).size.height -
+                      -appBar.preferredSize.height -
+                      MediaQuery.of(context).padding.top,
+                  viewportFraction: 1,
+                  enableInfiniteScroll: false,
+                  onPageChanged: (index, reason) {
+                    setState(() {
+                      currentOffset = index;
+                    });
+                  },
+                ),
+              ),
             ),
             // Row(mainAxisAlignment: MainAxisAlignment.center, children: [
             //   Text("Navigator area"),
@@ -258,7 +273,7 @@ class _HomePageState extends State<HomePage> {
                   const Spacer(),
                   BoringButton(
                     'Create Task',
-                    onPressed: () => context.go('/new-task'),
+                    onPressed: () => context.go('/new-task/$projectId'),
                   ),
                 ],
               )),

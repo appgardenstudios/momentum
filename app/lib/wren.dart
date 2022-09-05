@@ -66,12 +66,12 @@ class Wren {
     return id;
   }
 
-  static Future<Project?> getProject() async {
+  static Future<Project?> getProject(String projectId) async {
     List<Map> result = await Wren.instance._database.query(
       'projects',
       columns: ['id', 'name', 'status', 'task_time', 'created_on'],
-      where: 'status = ?',
-      whereArgs: ['open'],
+      where: 'id = ?',
+      whereArgs: [projectId],
       limit: 1,
     );
     if (result.isNotEmpty) {
@@ -174,7 +174,6 @@ class Wren {
       where:
           'status = ? AND project_id IN(${List.filled(projectIds.length, '?').join(',')})',
       whereArgs: whereArgs,
-      limit: 3,
     );
     for (var item in result) {
       taskMap[item['project_id']]!.add(Task(

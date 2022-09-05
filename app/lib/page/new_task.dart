@@ -6,7 +6,9 @@ import 'package:momentum/data/project.dart';
 import 'package:momentum/wren.dart';
 
 class NewTaskPage extends StatefulWidget {
-  const NewTaskPage({Key? key}) : super(key: key);
+  const NewTaskPage({required this.projectId, Key? key}) : super(key: key);
+
+  final String projectId;
 
   @override
   State<NewTaskPage> createState() => _NewTaskPageState();
@@ -31,7 +33,7 @@ class _NewTaskPageState extends State<NewTaskPage> {
     setState(() {
       loading = true;
     });
-    var p = await Wren.getProject();
+    var p = await Wren.getProject(widget.projectId);
     setState(() {
       loading = false;
       project = p;

@@ -67,8 +67,10 @@ class App extends StatelessWidget {
             builder: (context, state) => const NewProjectPage(),
           ),
           GoRoute(
-            path: 'new-task',
-            builder: (context, state) => const NewTaskPage(),
+            path: 'new-task/:projectId',
+            builder: (context, state) => NewTaskPage(
+              projectId: state.params['projectId']!,
+            ),
           ),
           GoRoute(
             path: 'task/:taskId',

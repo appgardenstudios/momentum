@@ -33,7 +33,7 @@ class _ManageProjectPageState extends State<ManageProjectPage> {
     setState(() {
       loading = true;
     });
-    var p = await Wren.getProject();
+    var p = await Wren.getProject(widget.projectId);
     setState(() {
       loading = false;
       project = p;
