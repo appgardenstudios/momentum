@@ -87,6 +87,25 @@ class Wren {
     return null;
   }
 
+  static Future<List<Project>> getProjects() async {
+    List<Map> result = await Wren.instance._database.query(
+      'projects',
+      columns: ['id', 'name', 'status', 'task_time', 'created_on'],
+      where: 'status = ?',
+      whereArgs: ['open'],
+      limit: 3,
+    );
+    return result
+        .map((item) => Project(
+              id: item['id'],
+              name: item['name'],
+              status: item['status'],
+              taskTime: item['task_time'],
+              createdOn: item['created_on'],
+            ))
+        .toList();
+  }
+
   static Future<void> updateProject(
       {required String id,
       required String name,
@@ -130,6 +149,45 @@ class Wren {
     });
 
     return id;
+  }
+
+  static Future<Map<String, List<Task>>> getTaskMap(
+      List<String> projectIds) async {
+    Map<String, List<Task>> taskMap = {};
+    for (var p in projectIds) {
+      taskMap[p] = [];
+    }
+
+    var whereArgs = ['open'];
+    whereArgs.addAll(projectIds);
+
+    List<Map> result = await Wren.instance._database.query(
+      'tasks',
+      columns: [
+        'id',
+        'project_id',
+        'name',
+        'status',
+        'description',
+        'created_on'
+      ],
+      where:
+          'status = ? AND project_id IN(${List.filled(projectIds.length, '?').join(',')})',
+      whereArgs: whereArgs,
+      limit: 3,
+    );
+    for (var item in result) {
+      taskMap[item['project_id']]!.add(Task(
+        id: item['id'],
+        projectId: item['project_id'],
+        name: item['name'],
+        status: item['status'],
+        description: item['description'],
+        createdOn: item['created_on'],
+      ));
+    }
+
+    return taskMap;
   }
 
   static Future<List<Task>> getTasks() async {

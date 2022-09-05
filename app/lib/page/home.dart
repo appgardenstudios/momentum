@@ -18,8 +18,9 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   bool loading = true;
-  Project? project;
-  List<Task>? tasks;
+  List<Project> projects = [];
+  int currentProject = 0;
+  Map<String, List<Task>> tasks = {};
 
   @override
   void initState() {
@@ -32,12 +33,13 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       loading = true;
     });
-    var p = await Wren.getProject();
-    var t = await Wren.getTasks();
+    var p = await Wren.getProjects();
+    var map = p.map((e) => e.id).toList();
+    var t = await Wren.getTaskMap(map);
     if (!mounted) return;
     setState(() {
       loading = false;
-      project = p;
+      projects = p;
       tasks = t;
     });
   }
@@ -47,7 +49,7 @@ class _HomePageState extends State<HomePage> {
     if (loading) {
       return loadingView(context);
     }
-    if (project == null) {
+    if (projects.isEmpty) {
       return welcomeView(context);
     }
     return projectView(context);
@@ -93,8 +95,129 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget projectView(BuildContext context) {
+    var appBar = AppBar(
+      title: Text(projects[currentProject].name),
+      centerTitle: false,
+      actions: <Widget>[
+        IconButton(
+          icon: const Icon(Icons.settings),
+          tooltip: 'Manage Project',
+          onPressed: () =>
+              context.go('/project/${projects[currentProject].id}'),
+        ),
+      ],
+    );
+
+    return Scaffold(
+      appBar: appBar,
+      body: Center(
+        child: Container(
+          constraints: const BoxConstraints(
+            minWidth: 100,
+            maxWidth: 320,
+            minHeight: double.infinity,
+            maxHeight: double.infinity,
+          ),
+          child: Column(children: [
+            Expanded(
+              child: CarouselSlider(
+                  items: getProjectWidgets(context),
+                  options: CarouselOptions(
+                    height: MediaQuery.of(context).size.height -
+                        -appBar.preferredSize.height -
+                        MediaQuery.of(context).padding.top,
+                    viewportFraction: 1,
+                    enableInfiniteScroll: false,
+                  )),
+            ),
+            // Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+            //   Text("Navigator area"),
+            // ]),
+          ]),
+        ),
+      ),
+      // body: Center(
+      //   child: Container(
+      //     padding: const EdgeInsets.only(top: 8),
+      //     constraints: const BoxConstraints(
+      //       minWidth: 100,
+      //       maxWidth: 320,
+      //       minHeight: double.infinity,
+      //       maxHeight: double.infinity,
+      //     ),
+      //     child: ListView.separated(
+      //       padding: const EdgeInsets.all(8),
+      //       itemCount: taskWidgets.length,
+      //       separatorBuilder: (BuildContext context, int index) =>
+      //           const SizedBox(height: 8),
+      //       itemBuilder: (BuildContext context, int index) {
+      //         return taskWidgets.elementAt(index);
+      //       },
+      //     ),
+      //   ),
+      // ),
+    );
+  }
+
+  List<Widget> getProjectWidgets(BuildContext context) {
+    List<Widget> projectWidgets = [];
+
+    projectWidgets.addAll(projects.map((p) {
+      var projectTasks = getProjectTasks(context, p.id);
+
+      return ListView.separated(
+        padding: const EdgeInsets.all(8),
+        itemCount: projectTasks.length,
+        separatorBuilder: (BuildContext context, int index) =>
+            const SizedBox(height: 8),
+        itemBuilder: (BuildContext context, int index) {
+          return projectTasks.elementAt(index);
+        },
+      );
+    }));
+
+    if (projectWidgets.length < 3) {
+      projectWidgets.add(Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Container(
+                constraints: const BoxConstraints(minWidth: 100, maxWidth: 300),
+                margin: const EdgeInsets.only(bottom: 32.0),
+                child: const BoringText(
+                  'You can create up to 3 projects',
+                  textAlign: TextAlign.center,
+                )),
+            BoringButton(
+              'Create Another',
+              onPressed: () => context.go('/new-project'),
+            ),
+          ],
+        ),
+      ));
+    } else {
+      projectWidgets.add(Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Container(
+                constraints: const BoxConstraints(minWidth: 100, maxWidth: 300),
+                margin: const EdgeInsets.only(bottom: 32.0),
+                child: const BoringText(
+                  'Complete a project before adding another.',
+                  textAlign: TextAlign.center,
+                )),
+          ],
+        ),
+      ));
+    }
+
+    return projectWidgets;
+  }
+
+  List<Widget> getProjectTasks(BuildContext context, String projectId) {
     List<Widget> taskWidgets = [];
-    taskWidgets.addAll(tasks!.map((t) => BoringCard(
+    taskWidgets.addAll(tasks[projectId]!.map((t) => BoringCard(
             child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -147,77 +270,6 @@ class _HomePageState extends State<HomePage> {
           child: Center(
               child: BoringCaption('Complete a task before adding another.'))));
     }
-
-    var appBar = AppBar(
-      title: Text(project!.name),
-      centerTitle: false,
-      actions: <Widget>[
-        IconButton(
-          icon: const Icon(Icons.settings),
-          tooltip: 'Manage Project',
-          onPressed: () => context.go('/project/${project!.id}'),
-        ),
-      ],
-    );
-
-    return Scaffold(
-      appBar: appBar,
-      body: Center(
-        child: Container(
-          constraints: const BoxConstraints(
-            minWidth: 100,
-            maxWidth: 320,
-            minHeight: double.infinity,
-            maxHeight: double.infinity,
-          ),
-          child: Column(children: [
-            Expanded(
-              child: CarouselSlider(
-                  items: [
-                    ListView.separated(
-                      padding: const EdgeInsets.all(8),
-                      itemCount: taskWidgets.length,
-                      separatorBuilder: (BuildContext context, int index) =>
-                          const SizedBox(height: 8),
-                      itemBuilder: (BuildContext context, int index) {
-                        return taskWidgets.elementAt(index);
-                      },
-                    ),
-                  ],
-                  options: CarouselOptions(
-                    height: MediaQuery.of(context).size.height -
-                        -appBar.preferredSize.height -
-                        MediaQuery.of(context).padding.top,
-                    viewportFraction: 1,
-                    enableInfiniteScroll: false,
-                  )),
-            ),
-            // Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-            //   Text("Navigator area"),
-            // ]),
-          ]),
-        ),
-      ),
-      // body: Center(
-      //   child: Container(
-      //     padding: const EdgeInsets.only(top: 8),
-      //     constraints: const BoxConstraints(
-      //       minWidth: 100,
-      //       maxWidth: 320,
-      //       minHeight: double.infinity,
-      //       maxHeight: double.infinity,
-      //     ),
-      //     child: ListView.separated(
-      //       padding: const EdgeInsets.all(8),
-      //       itemCount: taskWidgets.length,
-      //       separatorBuilder: (BuildContext context, int index) =>
-      //           const SizedBox(height: 8),
-      //       itemBuilder: (BuildContext context, int index) {
-      //         return taskWidgets.elementAt(index);
-      //       },
-      //     ),
-      //   ),
-      // ),
-    );
+    return taskWidgets;
   }
 }
