@@ -19,8 +19,9 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   bool loading = true;
   List<Project> projects = [];
-  int currentOffset = 0;
   Map<String, List<Task>> tasks = {};
+  int currentOffset = 0;
+  final CarouselController carouselController = CarouselController();
 
   @override
   void initState() {
@@ -117,6 +118,8 @@ class _HomePageState extends State<HomePage> {
       );
     }
 
+    var projectWidgets = getProjectWidgets(context);
+
     return Scaffold(
       appBar: appBar,
       body: Center(
@@ -130,11 +133,13 @@ class _HomePageState extends State<HomePage> {
           child: Column(children: [
             Expanded(
               child: CarouselSlider(
-                items: getProjectWidgets(context),
+                items: projectWidgets,
+                carouselController: carouselController,
                 options: CarouselOptions(
                   height: MediaQuery.of(context).size.height -
                       -appBar.preferredSize.height -
-                      MediaQuery.of(context).padding.top,
+                      MediaQuery.of(context).padding.top -
+                      48,
                   viewportFraction: 1,
                   enableInfiniteScroll: false,
                   onPageChanged: (index, reason) {
@@ -145,32 +150,30 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
             ),
-            // Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-            //   Text("Navigator area"),
-            // ]),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: projectWidgets.asMap().entries.map((entry) {
+                return GestureDetector(
+                  onTap: () => carouselController.animateToPage(entry.key),
+                  child: Container(
+                    width: 14,
+                    height: 14,
+                    margin: const EdgeInsets.only(
+                        top: 17, bottom: 17, left: 8, right: 8),
+                    decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: (Theme.of(context).brightness == Brightness.dark
+                                ? Colors.white
+                                : Colors.black)
+                            .withOpacity(
+                                currentOffset == entry.key ? 0.9 : 0.4)),
+                  ),
+                );
+              }).toList(),
+            ),
           ]),
         ),
       ),
-      // body: Center(
-      //   child: Container(
-      //     padding: const EdgeInsets.only(top: 8),
-      //     constraints: const BoxConstraints(
-      //       minWidth: 100,
-      //       maxWidth: 320,
-      //       minHeight: double.infinity,
-      //       maxHeight: double.infinity,
-      //     ),
-      //     child: ListView.separated(
-      //       padding: const EdgeInsets.all(8),
-      //       itemCount: taskWidgets.length,
-      //       separatorBuilder: (BuildContext context, int index) =>
-      //           const SizedBox(height: 8),
-      //       itemBuilder: (BuildContext context, int index) {
-      //         return taskWidgets.elementAt(index);
-      //       },
-      //     ),
-      //   ),
-      // ),
     );
   }
 
