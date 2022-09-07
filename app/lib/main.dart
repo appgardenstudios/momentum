@@ -1,8 +1,6 @@
-import 'dart:async';
-import 'dart:io' show Directory, exit;
+import 'dart:io' show Directory;
 import 'dart:developer';
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:path/path.dart';
@@ -19,38 +17,19 @@ import 'package:momentum/page/complete_task.dart';
 import 'package:momentum/wren.dart';
 
 void main() async {
-  runZonedGuarded(() async {
-    WidgetsFlutterBinding.ensureInitialized();
+  WidgetsFlutterBinding.ensureInitialized();
 
-    FlutterError.onError = (details) {
-      // TODO error reporting?
-      print("Error From INSIDE FRAME_WORK");
-      print("----------------------");
-      print("Error :  ${details.exception}");
-      print("StackTrace :  ${details.stack}");
-      FlutterError.presentError(details);
-      if (kReleaseMode) exit(1);
-    };
+  final Directory result = await getApplicationSupportDirectory();
+  log(result.absolute.path);
+  await Wren.init(path: join(result.path, 'momentum.db'));
 
-    final Directory result = await getApplicationSupportDirectory();
-    log(result.absolute.path);
-    await Wren.init(path: join(result.path, 'momentum.db'));
-
-    runApp(App());
-  }, (error, stack) {
-    // TODO error reporting?
-    print("Error FROM OUT_SIDE FRAMEWORK ");
-    print("--------------------------------");
-    print("Error :  $error");
-    print("StackTrace :  $stack");
-    if (kReleaseMode) exit(1);
-  });
+  runApp(App());
 }
 
 class App extends StatelessWidget {
   App({Key? key}) : super(key: key);
 
-  var uuid = const Uuid();
+  final Uuid uuid = const Uuid();
 
   late final _router = GoRouter(
     routes: [
