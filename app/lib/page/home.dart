@@ -53,7 +53,11 @@ class _HomePageState extends State<HomePage> {
     if (projects.isEmpty) {
       return welcomeView(context);
     }
-    return projectView(context);
+    double width = MediaQuery.of(context).size.width;
+    if (width >= 960) {
+      return multiColumnProjectView(context, width);
+    }
+    return singleColumnProjectView(context);
   }
 
   Widget loadingView(BuildContext context) {
@@ -95,7 +99,99 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget projectView(BuildContext context) {
+  Widget multiColumnProjectView(BuildContext context, double width) {
+    double itemWidth =
+        (width - (16 * (projects.length + 1))) / (projects.length + 1);
+    if (itemWidth > 320) {
+      itemWidth = 320;
+    }
+    List<Widget> projectWidgets = [];
+
+    projectWidgets.addAll(projects.map((p) {
+      List<Widget> items = [];
+      items.add(Padding(
+        padding: const EdgeInsets.only(bottom: 16),
+        child: BoringH4(p.name),
+      ));
+
+      List<Widget> projectTasks = getProjectTasks(context, p.id);
+      for (var i = 0; i < projectTasks.length; i++) {
+        items.add(projectTasks[i]);
+        if (i != projectTasks.length - 1) {
+          items.add(const SizedBox(height: 8));
+        }
+      }
+
+      items.add(BoringLink(
+        'Manage Project',
+        onPressed: () => context.go('/project/${p.id}'),
+      ));
+
+      return Container(
+        constraints: BoxConstraints(minWidth: 100, maxWidth: itemWidth),
+        margin: const EdgeInsets.only(top: 16, left: 16),
+        child: Column(
+          children: items,
+        ),
+      );
+    }));
+
+    if (projectWidgets.length < 3) {
+      projectWidgets.add(Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Container(
+                constraints: BoxConstraints(minWidth: 100, maxWidth: itemWidth),
+                margin: const EdgeInsets.only(top: 24),
+                padding: const EdgeInsets.all(16),
+                child: const BoringText(
+                  'You can create up to 3 projects',
+                  textAlign: TextAlign.center,
+                )),
+            BoringButton(
+              'Create Another',
+              onPressed: () => context.go('/new-project'),
+            ),
+          ],
+        ),
+      ));
+    } else {
+      projectWidgets.add(Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Container(
+                constraints: BoxConstraints(minWidth: 100, maxWidth: itemWidth),
+                margin: const EdgeInsets.only(top: 56),
+                padding: const EdgeInsets.all(16),
+                child: const BoringText(
+                  'Complete a project before adding another.',
+                  textAlign: TextAlign.center,
+                )),
+          ],
+        ),
+      ));
+    }
+
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Momentum'),
+        centerTitle: false,
+      ),
+      body: SingleChildScrollView(
+        child: Center(
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: projectWidgets,
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget singleColumnProjectView(BuildContext context) {
     AppBar appBar;
     if (currentOffset < projects.length) {
       appBar = AppBar(
@@ -181,7 +277,7 @@ class _HomePageState extends State<HomePage> {
     List<Widget> projectWidgets = [];
 
     projectWidgets.addAll(projects.map((p) {
-      var projectTasks = getProjectTasks(context, p.id);
+      List<Widget> projectTasks = getProjectTasks(context, p.id);
 
       return ListView.separated(
         padding: const EdgeInsets.all(8),
