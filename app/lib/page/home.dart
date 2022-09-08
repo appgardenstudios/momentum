@@ -214,7 +214,52 @@ class _HomePageState extends State<HomePage> {
       );
     }
 
-    var projectWidgets = getProjectWidgets(context);
+    List<Widget> projectWidgets = getProjectWidgets(context);
+
+    List<Widget> navDots = projectWidgets.asMap().entries.map((entry) {
+      return GestureDetector(
+        onTap: () => carouselController.animateToPage(entry.key),
+        child: Container(
+          width: 14,
+          height: 14,
+          margin: const EdgeInsets.only(top: 17, bottom: 17, left: 8, right: 8),
+          decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: (Theme.of(context).brightness == Brightness.dark
+                      ? Colors.white
+                      : Colors.black)
+                  .withOpacity(currentOffset == entry.key ? 0.9 : 0.4)),
+        ),
+      );
+    }).toList();
+
+    List<Widget> navBar = [];
+
+    navBar.add(Visibility(
+      visible: currentOffset != 0,
+      maintainSize: true,
+      maintainAnimation: true,
+      maintainState: true,
+      child: IconButton(
+        icon: const Icon(Icons.arrow_back),
+        tooltip: 'Previous Project',
+        onPressed: () => carouselController.animateToPage(currentOffset - 1),
+      ),
+    ));
+    navBar.add(const Spacer());
+    navBar.addAll(navDots);
+    navBar.add(const Spacer());
+    navBar.add(Visibility(
+      visible: currentOffset != projectWidgets.length - 1,
+      maintainSize: true,
+      maintainAnimation: true,
+      maintainState: true,
+      child: IconButton(
+        icon: const Icon(Icons.arrow_forward),
+        tooltip: 'Previous Project',
+        onPressed: () => carouselController.animateToPage(currentOffset + 1),
+      ),
+    ));
 
     return Scaffold(
       appBar: appBar,
@@ -248,24 +293,7 @@ class _HomePageState extends State<HomePage> {
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: projectWidgets.asMap().entries.map((entry) {
-                return GestureDetector(
-                  onTap: () => carouselController.animateToPage(entry.key),
-                  child: Container(
-                    width: 14,
-                    height: 14,
-                    margin: const EdgeInsets.only(
-                        top: 17, bottom: 17, left: 8, right: 8),
-                    decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: (Theme.of(context).brightness == Brightness.dark
-                                ? Colors.white
-                                : Colors.black)
-                            .withOpacity(
-                                currentOffset == entry.key ? 0.9 : 0.4)),
-                  ),
-                );
-              }).toList(),
+              children: navBar,
             ),
           ]),
         ),
