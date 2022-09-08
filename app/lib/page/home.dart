@@ -122,10 +122,12 @@ class _HomePageState extends State<HomePage> {
         }
       }
 
-      items.add(BoringLink(
-        'Manage Project',
-        onPressed: () => context.go('/project/${p.id}'),
-      ));
+      items.add(Padding(
+          padding: const EdgeInsets.only(top: 8),
+          child: BoringLink(
+            'Manage Project',
+            onPressed: () => context.go('/project/${p.id}'),
+          )));
 
       return Container(
         constraints: BoxConstraints(minWidth: 100, maxWidth: itemWidth),
