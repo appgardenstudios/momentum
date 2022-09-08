@@ -88,7 +88,7 @@ class App extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Momentum',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.deepPurple,
       ),
       routeInformationParser: _router.routeInformationParser,
       routeInformationProvider: _router.routeInformationProvider,
