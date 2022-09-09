@@ -4,8 +4,11 @@ import 'package:go_router/go_router.dart';
 import 'package:momentum/wren.dart';
 
 class CompleteTaskPage extends StatefulWidget {
-  const CompleteTaskPage({required this.taskId, Key? key}) : super(key: key);
+  const CompleteTaskPage(
+      {required this.projectId, required this.taskId, Key? key})
+      : super(key: key);
 
+  final String projectId;
   final String taskId;
 
   @override
@@ -23,8 +26,10 @@ class _CompleteTaskPageState extends State<CompleteTaskPage> {
 
   void _updateTask() async {
     await Wren.updateTaskStatus(id: widget.taskId, status: 'done');
+    // TODO remove this artificial delay
+    await Future.delayed(const Duration(milliseconds: 500));
     if (!mounted) return;
-    context.go('/');
+    context.go('/?project=${widget.projectId}');
   }
 
   @override

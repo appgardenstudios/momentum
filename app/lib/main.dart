@@ -36,8 +36,11 @@ class App extends StatelessWidget {
       GoRoute(
         path: '/',
         // Use page builder so we can force the home page to not maintain state
-        pageBuilder: (context, state) =>
-            const MaterialPage(child: HomePage(), maintainState: false),
+        pageBuilder: (context, state) => MaterialPage(
+            child: HomePage(
+              projectId: state.queryParams['project'],
+            ),
+            maintainState: false),
         routes: [
           GoRoute(
             path: 'new-project',
@@ -50,14 +53,16 @@ class App extends StatelessWidget {
             ),
           ),
           GoRoute(
-            path: 'task/:taskId',
+            path: 'project/:projectId/task/:taskId',
             builder: (context, state) => ManageTaskPage(
+              projectId: state.params['projectId']!,
               taskId: state.params['taskId']!,
             ),
           ),
           GoRoute(
-            path: 'task/:taskId/complete',
+            path: 'project/:projectId/task/:taskId/complete',
             builder: (context, state) => CompleteTaskPage(
+              projectId: state.params['projectId']!,
               taskId: state.params['taskId']!,
             ),
           ),

@@ -10,7 +10,9 @@ import 'package:momentum/data/project.dart';
 import 'package:momentum/data/task.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  const HomePage({required this.projectId, Key? key}) : super(key: key);
+
+  final String? projectId;
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -34,14 +36,25 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       loading = true;
     });
+    // Get data
     var p = await Wren.getProjects();
     var map = p.map((e) => e.id).toList();
     var t = await Wren.getTaskMap(map);
+    // Set currentOffset to passed in project id
+    int co = 0;
+    if (widget.projectId != null) {
+      p.asMap().forEach((index, project) {
+        if (project.id == widget.projectId) {
+          co = index;
+        }
+      });
+    }
     if (!mounted) return;
     setState(() {
       loading = false;
       projects = p;
       tasks = t;
+      currentOffset = co;
     });
   }
 
@@ -279,6 +292,7 @@ class _HomePageState extends State<HomePage> {
                 items: projectWidgets,
                 carouselController: carouselController,
                 options: CarouselOptions(
+                  initialPage: currentOffset,
                   height: MediaQuery.of(context).size.height -
                       -appBar.preferredSize.height -
                       MediaQuery.of(context).padding.top -
@@ -374,11 +388,13 @@ class _HomePageState extends State<HomePage> {
                 child: Row(
                   children: [
                     BoringLink('Edit',
-                        onPressed: () => {context.go('/task/${t.id}')}),
+                        onPressed: () =>
+                            {context.go('/project/$projectId/task/${t.id}')}),
                     const Spacer(),
                     BoringButton(
                       'Done',
-                      onPressed: () => context.go('/task/${t.id}/complete'),
+                      onPressed: () => context
+                          .go('/project/$projectId/task/${t.id}/complete'),
                     ),
                   ],
                 )),

@@ -6,8 +6,11 @@ import 'package:momentum/wren.dart';
 import 'package:momentum/data/task.dart';
 
 class ManageTaskPage extends StatefulWidget {
-  const ManageTaskPage({required this.taskId, Key? key}) : super(key: key);
+  const ManageTaskPage(
+      {required this.projectId, required this.taskId, Key? key})
+      : super(key: key);
 
+  final String projectId;
   final String taskId;
 
   @override
@@ -48,7 +51,7 @@ class _ManageTaskPageState extends State<ManageTaskPage> {
           id: task!.id, name: taskName, description: taskDescription);
 
       if (!mounted) return;
-      context.go('/');
+      context.go('/?project=${widget.projectId}');
     }
   }
 
@@ -56,7 +59,7 @@ class _ManageTaskPageState extends State<ManageTaskPage> {
     await Wren.updateTaskStatus(id: widget.taskId, status: 'deleted');
 
     if (!mounted) return;
-    context.go('/');
+    context.go('/?project=${widget.projectId}');
   }
 
   @override
@@ -153,7 +156,10 @@ class _ManageTaskPageState extends State<ManageTaskPage> {
                         child: Row(
                           children: [
                             BoringLink('Cancel',
-                                onPressed: () => {context.go('/')}),
+                                onPressed: () => {
+                                      context
+                                          .go('/?project=${widget.projectId}')
+                                    }),
                             const Spacer(),
                             BoringButton('Save', onPressed: _saveTask)
                           ],

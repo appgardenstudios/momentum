@@ -21,10 +21,11 @@ class _NewProjectPageState extends State<NewProjectPage> {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
 
-      await Wren.createProject(name: projectName, taskTime: projectTaskTime);
+      String id = await Wren.createProject(
+          name: projectName, taskTime: projectTaskTime);
 
       if (!mounted) return;
-      context.go('/');
+      context.go('/?project=$id');
     }
   }
 

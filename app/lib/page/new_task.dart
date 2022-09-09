@@ -48,7 +48,7 @@ class _NewTaskPageState extends State<NewTaskPage> {
           projectId: project!.id, name: taskName, description: taskDescription);
 
       if (!mounted) return;
-      context.go('/');
+      context.go('/?project=${project!.id}');
     }
   }
 
@@ -139,7 +139,10 @@ class _NewTaskPageState extends State<NewTaskPage> {
                         child: Row(
                           children: [
                             BoringLink('Cancel',
-                                onPressed: () => {context.go('/')}),
+                                onPressed: () => {
+                                      context
+                                          .go('/?project=${widget.projectId}')
+                                    }),
                             const Spacer(),
                             BoringButton('Go', onPressed: _createTask)
                           ],

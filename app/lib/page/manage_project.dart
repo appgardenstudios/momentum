@@ -48,7 +48,7 @@ class _ManageProjectPageState extends State<ManageProjectPage> {
           id: project!.id, name: projectName, taskTime: projectTaskTime);
 
       if (!mounted) return;
-      context.go('/');
+      context.go('/?project=${widget.projectId}');
     }
   }
 
@@ -134,7 +134,10 @@ class _ManageProjectPageState extends State<ManageProjectPage> {
                         child: Row(
                           children: [
                             BoringLink('Cancel',
-                                onPressed: () => {context.go('/')}),
+                                onPressed: () => {
+                                      context
+                                          .go('/?project=${widget.projectId}')
+                                    }),
                             const Spacer(),
                             BoringButton('Save', onPressed: _saveProject)
                           ],
