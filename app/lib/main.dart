@@ -35,11 +35,9 @@ class App extends StatelessWidget {
     routes: [
       GoRoute(
         path: '/',
-        builder: (context, state) => HomePage(
-          // Always rebuild the home page after navigating elsewhere
-          // TODO there has to be a better way
-          key: ValueKey(uuid.v4()),
-        ),
+        // Use page builder so we can force the home page to not maintain state
+        pageBuilder: (context, state) =>
+            const MaterialPage(child: HomePage(), maintainState: false),
         routes: [
           GoRoute(
             path: 'new-project',

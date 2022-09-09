@@ -258,7 +258,7 @@ class _HomePageState extends State<HomePage> {
       maintainState: true,
       child: IconButton(
         icon: const Icon(Icons.arrow_forward),
-        tooltip: 'Previous Project',
+        tooltip: 'Next Project',
         onPressed: () => carouselController.animateToPage(currentOffset + 1),
       ),
     ));
