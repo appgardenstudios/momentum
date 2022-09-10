@@ -1,4 +1,4 @@
-package com.compiledpanda.momentum
+package com.appgardenstudios.momentum
 
 import io.flutter.embedding.android.FlutterActivity
 

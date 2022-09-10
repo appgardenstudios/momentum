@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.compiledpanda.momentum">
+    package="com.appgardenstudios.momentum">
    <application
         android:label="momentum"
         android:name="${applicationName}"

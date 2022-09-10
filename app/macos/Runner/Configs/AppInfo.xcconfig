@@ -8,7 +8,7 @@
 PRODUCT_NAME = momentum
 
 // The application's bundle identifier
-PRODUCT_BUNDLE_IDENTIFIER = com.compiledpanda.momentum
+PRODUCT_BUNDLE_IDENTIFIER = com.appgardenstudios.momentum;
 
 // The copyright displayed in application information
-PRODUCT_COPYRIGHT = Copyright © 2022 com.compiledpanda.momentum. All rights reserved.
+PRODUCT_COPYRIGHT = Copyright © 2022 com.appgardenstudios.momentum. All rights reserved.
