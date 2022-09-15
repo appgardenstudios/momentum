@@ -26,26 +26,30 @@ class _CompleteTaskPageState extends State<CompleteTaskPage> {
 
   void _updateTask() async {
     await Wren.updateTaskStatus(id: widget.taskId, status: 'done');
-    // TODO remove this artificial delay
-    await Future.delayed(const Duration(milliseconds: 500));
+    // Wait for a full loop of the gif
+    await Future.delayed(const Duration(milliseconds: 750));
     if (!mounted) return;
     context.go('/?project=${widget.projectId}');
   }
 
   @override
   Widget build(BuildContext context) {
-    return loadingView(context);
+    return confettiView(context);
   }
 
-  Widget loadingView(BuildContext context) {
+  Widget confettiView(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Well Done!'),
         centerTitle: false,
         automaticallyImplyLeading: false,
       ),
-      body: const Center(
-        child: CircularProgressIndicator(),
+      body: Center(
+        child: Image.asset(
+          "assets/confetti.gif",
+          height: 300,
+          width: 300,
+        ),
       ),
     );
   }

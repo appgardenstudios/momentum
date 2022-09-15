@@ -22,6 +22,10 @@ samples, guidance on mobile development, and a full API reference.
 flutter run -d macos
 ```
 
+```
+~/Library/Containers/com.appgardenstudios.momentum/Data/Library/Application Support/com.appgardenstudios.momentum
+```
+
 ### iOS Device
 ```
 flutter devices
@@ -33,4 +37,9 @@ flutter devices
 Replace icon in assets/icon.png (1024x1024)
 ```
 flutter pub run flutter_launcher_icons:main -f flutter_launcher_icons.yaml
+```
+
+## Update packages
+```
+flutter pub outdated
 ```
