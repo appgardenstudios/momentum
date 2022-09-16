@@ -20,10 +20,167 @@
         padding: 0;
         font-weight: normal;
       }
-      
+      h1, h2, h3 {
+        color: #311B92;
+      }
+      body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      body > div {
+        max-width: 960px;
+      }
+
+      #hero {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 320px;
+      }
+      #hero > h2 {
+        margin-top: 48px;
+      }
+
+      #momentum {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 320px;
+      }
+
+      #walkthrough-1, #walkthrough-2, #walkthrough-3 {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        gap: 32px 32px;
+        margin-top: 32px;
+      }
+      #walkthrough-1 > div {
+        max-width: 480px;
+      }
+      #walkthrough-2 > div {
+        max-width: 240px;
+      }
+      #walkthrough-3 > div {
+        max-width: 480px;
+      }
+
+      #cta {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 320px;
+      }
+
+      #faq {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+      #faq-list {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        gap: 32px 32px;
+        margin-top: 32px;
+      }
+
+      footer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-evenly;
+        min-height: 48px;
+      }
     </style>
   </head>
   <body>
-    Hello World!
+    <div id="hero">
+      <h1>Are you working on a side project?</h1>
+      <h1>Are you busy and have very little time?</h1>
+      <h1>Are you struggling to make progress?</h1>
+
+      <h2>You can finish your project if you do the next thing that needs to be done every single day.</h2>
+    </div>
+    <div id="momentum">
+      <h2>Momentum helps you finish your projects by keeping you focused on the next thing that needs to be done while ensuring that you can complete it within the time you have available.</h2>
+      <div>TODO CTA</div>
+    </div>
+    <div id="walkthrough-1">
+      <img src="https://via.placeholder.com/200x400" alt="New Project Screenshot"/>
+      <div>
+        <h3>Configure your project in Momentum</h3>
+        <p>Give it a name and decide how much time you can work on your project every single day. This should be the minimum amount of time you have available. This number is important because the work you do needs to fit within this timeframe so you can complete something every day.</p>
+      </div>
+    </div>
+    <div id="walkthrough-2">
+      <div>
+        <h3>Record the Next Thing</h3>
+        <p>This should be the next thing that can be done within the time you have available. You can have up to 3 next things.</p>
+      </div>
+      <img src="https://via.placeholder.com/200x400" alt="New Task Screenshot"/>
+      <div>
+        <h3>Jot down your notes</h3>
+        <p>Get it all out of your head and into the app so you have everything you need when you sit down to work on your project.</p>
+      </div>
+    </div>
+    <div id="walkthrough-3">
+      <div>
+        <h3>Work on your project every day</h3>
+        <p>Sit down and do the next thing. If you don't know the next thing, the next thing is taking time to figure out the next thing. Once you are done with something, complete it, celebrate it, and move on to the next thing.</p>
+      </div>
+      <img src="https://via.placeholder.com/200x400" alt="Home Page Screenshot"/>
+    </div>
+    <div id="cta">TODO CTA</div>
+    <div id="faq">
+      <h2>Frequently Asked Questions</h2>
+      <div id="faq-list">
+        <div>
+          <h3>Who is this for?</h3>
+          <p>TODO</p>
+        </div>
+        <div>
+          <h3>Why only 3 tasks?</h3>
+          <p></p>
+        </div>
+        <div>
+          <h3>Why only 3 projects?</h3>
+          <p></p>
+        </div>
+        <div>
+          <h3>Why is this not a website?</h3>
+          <p></p>
+        </div>
+        <div>
+          <h3>What do you do with my data?</h3>
+          <p></p>
+        </div>
+        <div>
+          <h3>Why no ads?</h3>
+          <p></p>
+        </div>
+        <div>
+          <h3>Is this open source?</h3>
+          <p></p>
+        </div>
+        <div>
+          <h3>What's next?</h3>
+          <p></p>
+        </div>
+      <div>
+    </div>
+    <footer>
+      <div>Contact Us | Github | Apple App Store | Android App Store</div>
+      <div>© App Garden Studios, LLC</div>
+    </footer>
   </body>
 </html>
