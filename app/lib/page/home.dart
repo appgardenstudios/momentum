@@ -1,10 +1,9 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
 import 'package:momentum/boring.dart';
+import 'package:momentum/copy.dart';
 import 'package:momentum/wren.dart';
 import 'package:momentum/data/project.dart';
 import 'package:momentum/data/task.dart';
@@ -28,7 +27,6 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    log('initState');
     _getData();
   }
 
@@ -76,7 +74,7 @@ class _HomePageState extends State<HomePage> {
   Widget loadingView(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Welcome!'),
+        title: Text(Copy.home.welcome),
         centerTitle: false,
       ),
       body: const Center(
@@ -88,7 +86,7 @@ class _HomePageState extends State<HomePage> {
   Widget welcomeView(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Welcome!'),
+        title: Text(Copy.home.welcome),
         centerTitle: false,
       ),
       body: Center(
@@ -98,12 +96,12 @@ class _HomePageState extends State<HomePage> {
             Container(
                 constraints: const BoxConstraints(minWidth: 100, maxWidth: 300),
                 margin: const EdgeInsets.only(bottom: 32.0),
-                child: const BoringText(
-                  'Momentum helps you break a project down into bite-sized pieces so you can work on it every single day.',
+                child: BoringText(
+                  Copy.home.initialPrompt,
                   textAlign: TextAlign.center,
                 )),
             BoringButton(
-              'Create Project',
+              Copy.home.createProject,
               onPressed: () => context.go('/new-project'),
             ),
           ],
@@ -138,7 +136,7 @@ class _HomePageState extends State<HomePage> {
       items.add(Padding(
           padding: const EdgeInsets.only(top: 8),
           child: BoringLink(
-            'Manage Project',
+            Copy.home.manageProject,
             onPressed: () => context.go('/project/${p.id}'),
           )));
 
@@ -160,12 +158,12 @@ class _HomePageState extends State<HomePage> {
                 constraints: BoxConstraints(minWidth: 100, maxWidth: itemWidth),
                 margin: const EdgeInsets.only(top: 24),
                 padding: const EdgeInsets.all(16),
-                child: const BoringText(
-                  'You can create up to 3 projects',
+                child: BoringText(
+                  Copy.home.createAnotherProjectPrompt,
                   textAlign: TextAlign.center,
                 )),
             BoringButton(
-              'Create Another',
+              Copy.home.createAnotherProject,
               onPressed: () => context.go('/new-project'),
             ),
           ],
@@ -180,8 +178,8 @@ class _HomePageState extends State<HomePage> {
                 constraints: BoxConstraints(minWidth: 100, maxWidth: itemWidth),
                 margin: const EdgeInsets.only(top: 56),
                 padding: const EdgeInsets.all(16),
-                child: const BoringText(
-                  'Complete a project before adding another.',
+                child: BoringText(
+                  Copy.home.maxProjectsPrompt,
                   textAlign: TextAlign.center,
                 )),
           ],
@@ -191,7 +189,7 @@ class _HomePageState extends State<HomePage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Momentum'),
+        title: Text(Copy.common.appTitle),
         centerTitle: false,
       ),
       body: SingleChildScrollView(
@@ -215,7 +213,7 @@ class _HomePageState extends State<HomePage> {
         actions: <Widget>[
           IconButton(
             icon: const Icon(Icons.settings),
-            tooltip: 'Manage Project',
+            tooltip: Copy.home.manageProject,
             onPressed: (() {
               context.go('/project/${projects[currentOffset].id}');
             }),
@@ -224,7 +222,7 @@ class _HomePageState extends State<HomePage> {
       );
     } else {
       appBar = AppBar(
-        title: const Text('New Project'),
+        title: Text(Copy.home.newProject),
         centerTitle: false,
       );
     }
@@ -257,7 +255,7 @@ class _HomePageState extends State<HomePage> {
       maintainState: true,
       child: IconButton(
         icon: const Icon(Icons.arrow_back),
-        tooltip: 'Previous Project',
+        tooltip: Copy.home.previousProject,
         onPressed: () => carouselController.animateToPage(currentOffset - 1),
       ),
     ));
@@ -271,7 +269,7 @@ class _HomePageState extends State<HomePage> {
       maintainState: true,
       child: IconButton(
         icon: const Icon(Icons.arrow_forward),
-        tooltip: 'Next Project',
+        tooltip: Copy.home.nextProject,
         onPressed: () => carouselController.animateToPage(currentOffset + 1),
       ),
     ));
@@ -342,12 +340,12 @@ class _HomePageState extends State<HomePage> {
             Container(
                 constraints: const BoxConstraints(minWidth: 100, maxWidth: 300),
                 margin: const EdgeInsets.only(bottom: 32.0),
-                child: const BoringText(
-                  'You can create up to 3 projects',
+                child: BoringText(
+                  Copy.home.createAnotherProjectPrompt,
                   textAlign: TextAlign.center,
                 )),
             BoringButton(
-              'Create Another',
+              Copy.home.createAnotherProject,
               onPressed: () => context.go('/new-project'),
             ),
           ],
@@ -361,8 +359,8 @@ class _HomePageState extends State<HomePage> {
             Container(
                 constraints: const BoxConstraints(minWidth: 100, maxWidth: 300),
                 margin: const EdgeInsets.only(bottom: 32.0),
-                child: const BoringText(
-                  'Complete a project before adding another.',
+                child: BoringText(
+                  Copy.home.maxProjectsPrompt,
                   textAlign: TextAlign.center,
                 )),
           ],
@@ -387,12 +385,12 @@ class _HomePageState extends State<HomePage> {
                 padding: const EdgeInsets.only(top: 16),
                 child: Row(
                   children: [
-                    BoringLink('Edit',
+                    BoringLink(Copy.home.editTask,
                         onPressed: () =>
                             {context.go('/project/$projectId/task/${t.id}')}),
                     const Spacer(),
                     BoringButton(
-                      'Done',
+                      Copy.home.completeTask,
                       onPressed: () => context
                           .go('/project/$projectId/task/${t.id}/complete'),
                     ),
@@ -406,18 +404,17 @@ class _HomePageState extends State<HomePage> {
           child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const BoringH5('The Next Thing'),
-          const Padding(
-              padding: EdgeInsets.only(top: 4),
-              child: BoringText(
-                  'Set the next thing you need to do by creating a task.')),
+          BoringH5(Copy.home.newTaskTitle),
+          Padding(
+              padding: const EdgeInsets.only(top: 4),
+              child: BoringText(Copy.home.newTaskDescription)),
           Padding(
               padding: const EdgeInsets.only(top: 12),
               child: Row(
                 children: [
                   const Spacer(),
                   BoringButton(
-                    'Create Task',
+                    Copy.home.newTask,
                     onPressed: () => context.go('/new-task/$projectId'),
                   ),
                 ],
@@ -425,10 +422,9 @@ class _HomePageState extends State<HomePage> {
         ],
       )));
     } else {
-      taskWidgets.add(const Padding(
-          padding: EdgeInsets.only(top: 4),
-          child: Center(
-              child: BoringCaption('Complete a task before adding another.'))));
+      taskWidgets.add(Padding(
+          padding: const EdgeInsets.only(top: 4),
+          child: Center(child: BoringCaption(Copy.home.maxTasksPrompt))));
     }
     return taskWidgets;
   }
