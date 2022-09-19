@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:momentum/boring.dart';
+import 'package:momentum/copy.dart';
 import 'package:momentum/wren.dart';
 
 class CompleteProjectPage extends StatefulWidget {
@@ -25,7 +26,7 @@ class _CompleteProjectPageState extends State<CompleteProjectPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Complete Project'),
+        title: Text(Copy.completeProject.title),
         centerTitle: false,
         automaticallyImplyLeading: false,
       ),
@@ -41,19 +42,20 @@ class _CompleteProjectPageState extends State<CompleteProjectPage> {
               child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const BoringText(
-                'Would you like to mark this project as complete? Any remaining tasks will be closed.',
+              BoringText(
+                Copy.completeProject.prompt,
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 24),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  BoringButton('No',
+                  BoringButton(Copy.completeProject.no,
                       onPressed: () =>
                           {context.go('/project/${widget.projectId}')}),
                   const SizedBox(width: 48),
-                  BoringButton('Yes', onPressed: _closeProject)
+                  BoringButton(Copy.completeProject.yes,
+                      onPressed: _closeProject)
                 ],
               ),
             ],

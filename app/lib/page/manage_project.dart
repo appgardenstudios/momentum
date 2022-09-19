@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:momentum/boring.dart';
+import 'package:momentum/copy.dart';
 import 'package:momentum/wren.dart';
 import 'package:momentum/data/project.dart';
 
@@ -63,7 +64,7 @@ class _ManageProjectPageState extends State<ManageProjectPage> {
   Widget loadingView(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Edit Project'),
+        title: Text(Copy.manageProject.manageProject),
         centerTitle: false,
         automaticallyImplyLeading: false,
       ),
@@ -76,7 +77,7 @@ class _ManageProjectPageState extends State<ManageProjectPage> {
   Widget editView(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Edit Project'),
+        title: Text(Copy.manageProject.manageProject),
         centerTitle: false,
         automaticallyImplyLeading: false,
       ),
@@ -92,38 +93,38 @@ class _ManageProjectPageState extends State<ManageProjectPage> {
                 key: _formKey,
                 child: ListView(
                   children: [
-                    const Padding(
-                        padding: EdgeInsets.only(top: 16),
-                        child: BoringH6('Name')),
+                    Padding(
+                        padding: const EdgeInsets.only(top: 16),
+                        child: BoringH6(Copy.manageProject.nameTitle)),
                     Padding(
                       padding: const EdgeInsets.only(top: 8),
                       child: BoringTextFormField(
                         initialValue: project!.name,
-                        hint: 'Project Name',
+                        hint: Copy.manageProject.nameHint,
                         onSaved: (value) => projectName = value!.trim(),
                         validator: (value) {
                           if (value == null ||
                               value.trim().isEmpty ||
                               value.trim().length > 32) {
-                            return 'Must be between 1 and 32 characters';
+                            return Copy.manageProject.nameError;
                           }
                           return null;
                         },
                       ),
                     ),
-                    const Padding(
-                      padding: EdgeInsets.only(top: 16),
-                      child: BoringH6('Task Time'),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 16),
+                      child: BoringH6(Copy.manageProject.timeTitle),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(top: 8),
                       child: BoringTextFormField(
                         initialValue: project!.taskTime,
-                        hint: 'Task Details',
+                        hint: Copy.manageProject.timeHint,
                         onSaved: (value) => projectTaskTime = value!.trim(),
                         validator: (value) {
                           if (value == null || value.trim().isEmpty) {
-                            return 'Must not be blank';
+                            return Copy.manageProject.timeError;
                           }
                           return null;
                         },
@@ -133,18 +134,19 @@ class _ManageProjectPageState extends State<ManageProjectPage> {
                         padding: const EdgeInsets.only(top: 16),
                         child: Row(
                           children: [
-                            BoringLink('Cancel',
+                            BoringLink(Copy.manageProject.cancel,
                                 onPressed: () => {
                                       context
                                           .go('/?project=${widget.projectId}')
                                     }),
                             const Spacer(),
-                            BoringButton('Save', onPressed: _saveProject)
+                            BoringButton(Copy.manageProject.save,
+                                onPressed: _saveProject)
                           ],
                         )),
                     Padding(
                       padding: const EdgeInsets.only(top: 64),
-                      child: BoringLink('Project Complete?',
+                      child: BoringLink(Copy.manageProject.complete,
                           onPressed: () => {
                                 context
                                     .go('/project/${widget.projectId}/complete')

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:momentum/boring.dart';
+import 'package:momentum/copy.dart';
 import 'package:momentum/wren.dart';
 
 class NewProjectPage extends StatefulWidget {
@@ -33,7 +34,7 @@ class _NewProjectPageState extends State<NewProjectPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('New Project'),
+        title: Text(Copy.newProject.newProject),
         centerTitle: false,
         automaticallyImplyLeading: false,
       ),
@@ -49,45 +50,42 @@ class _NewProjectPageState extends State<NewProjectPage> {
                 key: _formKey,
                 child: ListView(
                   children: [
-                    const Padding(
-                        padding: EdgeInsets.only(top: 16),
-                        child: BoringH6('What is your project named?')),
-                    const Padding(
-                        padding: EdgeInsets.only(top: 4, left: 8),
-                        child: BoringText(
-                            'It can be a working name, an actual name, or a silly made-up name.')),
+                    Padding(
+                        padding: const EdgeInsets.only(top: 16),
+                        child: BoringH6(Copy.newProject.nameTitle)),
+                    Padding(
+                        padding: const EdgeInsets.only(top: 4, left: 8),
+                        child: BoringText(Copy.newProject.namePrompt)),
                     Padding(
                       padding: const EdgeInsets.only(top: 8),
                       child: BoringTextFormField(
-                        hint: 'My Project',
+                        hint: Copy.newProject.nameHint,
                         onSaved: (value) => projectName = value!.trim(),
                         validator: (value) {
                           if (value == null ||
                               value.trim().isEmpty ||
                               value.trim().length > 32) {
-                            return 'Must be between 1 and 32 characters';
+                            return Copy.newProject.nameError;
                           }
                           return null;
                         },
                       ),
                     ),
-                    const Padding(
-                      padding: EdgeInsets.only(top: 16),
-                      child: BoringH6(
-                          'How much time can you devote to a single task?'),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 16),
+                      child: BoringH6(Copy.newProject.timeTitle),
                     ),
-                    const Padding(
-                        padding: EdgeInsets.only(top: 4, left: 8),
-                        child: BoringText(
-                            'This should be the amount of time you would like to spend working on your project every day in a single session.')),
+                    Padding(
+                        padding: const EdgeInsets.only(top: 4, left: 8),
+                        child: BoringText(Copy.newProject.timePrompt)),
                     Padding(
                       padding: const EdgeInsets.only(top: 8),
                       child: BoringTextFormField(
-                        hint: '30 minutes',
+                        hint: Copy.newProject.timeHint,
                         onSaved: (value) => projectTaskTime = value!.trim(),
                         validator: (value) {
                           if (value == null || value.trim().isEmpty) {
-                            return 'Must not be blank';
+                            return Copy.newProject.timeError;
                           }
                           return null;
                         },
@@ -97,10 +95,11 @@ class _NewProjectPageState extends State<NewProjectPage> {
                         padding: const EdgeInsets.only(top: 16),
                         child: Row(
                           children: [
-                            BoringLink('Cancel',
+                            BoringLink(Copy.newProject.cancel,
                                 onPressed: () => {context.go('/')}),
                             const Spacer(),
-                            BoringButton('Go', onPressed: _createProject)
+                            BoringButton(Copy.newProject.save,
+                                onPressed: _createProject)
                           ],
                         )),
                   ],
