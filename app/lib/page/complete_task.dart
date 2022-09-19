@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import 'package:momentum/copy.dart';
 import 'package:momentum/wren.dart';
 
 class CompleteTaskPage extends StatefulWidget {
@@ -40,7 +41,7 @@ class _CompleteTaskPageState extends State<CompleteTaskPage> {
   Widget confettiView(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Well Done!'),
+        title: Text(Copy.completeTask.title),
         centerTitle: false,
         automaticallyImplyLeading: false,
       ),

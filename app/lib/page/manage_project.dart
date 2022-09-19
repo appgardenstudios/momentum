@@ -64,7 +64,7 @@ class _ManageProjectPageState extends State<ManageProjectPage> {
   Widget loadingView(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(Copy.manageProject.manageProject),
+        title: Text(Copy.manageProject.title),
         centerTitle: false,
         automaticallyImplyLeading: false,
       ),
@@ -77,7 +77,7 @@ class _ManageProjectPageState extends State<ManageProjectPage> {
   Widget editView(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(Copy.manageProject.manageProject),
+        title: Text(Copy.manageProject.title),
         centerTitle: false,
         automaticallyImplyLeading: false,
       ),

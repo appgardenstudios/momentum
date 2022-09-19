@@ -34,7 +34,7 @@ class _NewProjectPageState extends State<NewProjectPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(Copy.newProject.newProject),
+        title: Text(Copy.newProject.title),
         centerTitle: false,
         automaticallyImplyLeading: false,
       ),

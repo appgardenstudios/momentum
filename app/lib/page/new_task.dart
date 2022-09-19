@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:momentum/boring.dart';
+import 'package:momentum/copy.dart';
 import 'package:momentum/data/project.dart';
 import 'package:momentum/wren.dart';
 
@@ -63,7 +64,7 @@ class _NewTaskPageState extends State<NewTaskPage> {
   Widget loadingView(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('New Task'),
+        title: Text(Copy.newTask.title),
         centerTitle: false,
         automaticallyImplyLeading: false,
       ),
@@ -76,7 +77,7 @@ class _NewTaskPageState extends State<NewTaskPage> {
   Widget formView(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('New Task'),
+        title: Text(Copy.newTask.title),
         centerTitle: false,
         automaticallyImplyLeading: false,
       ),
@@ -92,41 +93,39 @@ class _NewTaskPageState extends State<NewTaskPage> {
                 key: _formKey,
                 child: ListView(
                   children: [
-                    const Padding(
-                        padding: EdgeInsets.only(top: 16),
-                        child:
-                            BoringH6('What is the next thing you need to do?')),
+                    Padding(
+                        padding: const EdgeInsets.only(top: 16),
+                        child: BoringH6(Copy.newTask.nameTitle)),
                     Padding(
                         padding: const EdgeInsets.only(top: 4, left: 8),
                         child: BoringText(
-                            'Remember, you need to be able to complete this in ${project!.taskTime}!')),
+                            Copy.newTask.namePrompt(project!.taskTime))),
                     Padding(
                       padding: const EdgeInsets.only(top: 8),
                       child: BoringTextFormField(
-                        hint: 'Task Name',
+                        hint: Copy.newTask.nameHint,
                         onSaved: (value) => taskName = value!.trim(),
                         validator: (value) {
                           if (value == null ||
                               value.trim().isEmpty ||
                               value.trim().length > 32) {
-                            return 'Must be between 1 and 32 characters';
+                            return Copy.newTask.nameError;
                           }
                           return null;
                         },
                       ),
                     ),
-                    const Padding(
-                      padding: EdgeInsets.only(top: 16),
-                      child: BoringH6('Any other details or thoughts?'),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 16),
+                      child: BoringH6(Copy.newTask.descriptionTitle),
                     ),
-                    const Padding(
-                        padding: EdgeInsets.only(top: 4, left: 8),
-                        child: BoringText(
-                            'Is there anything you need to remember that you need to get out of your head?')),
+                    Padding(
+                        padding: const EdgeInsets.only(top: 4, left: 8),
+                        child: BoringText(Copy.newTask.descriptionPrompt)),
                     Padding(
                       padding: const EdgeInsets.only(top: 8),
                       child: BoringTextFormField(
-                        hint: 'Task Details',
+                        hint: Copy.newTask.descriptionHint,
                         onSaved: (value) =>
                             taskDescription = value != null ? value.trim() : '',
                         validator: (value) {
@@ -138,13 +137,14 @@ class _NewTaskPageState extends State<NewTaskPage> {
                         padding: const EdgeInsets.only(top: 16),
                         child: Row(
                           children: [
-                            BoringLink('Cancel',
+                            BoringLink(Copy.newTask.cancel,
                                 onPressed: () => {
                                       context
                                           .go('/?project=${widget.projectId}')
                                     }),
                             const Spacer(),
-                            BoringButton('Go', onPressed: _createTask)
+                            BoringButton(Copy.newTask.save,
+                                onPressed: _createTask)
                           ],
                         )),
                   ],

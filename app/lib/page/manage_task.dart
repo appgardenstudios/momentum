@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:momentum/boring.dart';
+import 'package:momentum/copy.dart';
 import 'package:momentum/wren.dart';
 import 'package:momentum/data/task.dart';
 
@@ -76,7 +77,7 @@ class _ManageTaskPageState extends State<ManageTaskPage> {
   Widget loadingView(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Edit Task'),
+        title: Text(Copy.manageTask.editTitle),
         centerTitle: false,
         automaticallyImplyLeading: false,
       ),
@@ -89,7 +90,7 @@ class _ManageTaskPageState extends State<ManageTaskPage> {
   Widget editView(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Edit Task'),
+        title: Text(Copy.manageTask.editTitle),
         centerTitle: false,
         automaticallyImplyLeading: false,
       ),
@@ -109,9 +110,9 @@ class _ManageTaskPageState extends State<ManageTaskPage> {
                         padding: const EdgeInsets.only(top: 16),
                         child: Row(
                           children: [
-                            const BoringH6('Name'),
+                            BoringH6(Copy.manageTask.nameTitle),
                             const Spacer(),
-                            BoringLink('Delete',
+                            BoringLink(Copy.manageTask.delete,
                                 onPressed: () => {
                                       setState(
                                         () => deleting = true,
@@ -123,27 +124,27 @@ class _ManageTaskPageState extends State<ManageTaskPage> {
                       padding: const EdgeInsets.only(top: 8),
                       child: BoringTextFormField(
                         initialValue: task!.name,
-                        hint: 'Task Name',
+                        hint: Copy.manageTask.nameHint,
                         onSaved: (value) => taskName = value!.trim(),
                         validator: (value) {
                           if (value == null ||
                               value.trim().isEmpty ||
                               value.trim().length > 32) {
-                            return 'Must be between 1 and 32 characters';
+                            return Copy.manageTask.nameError;
                           }
                           return null;
                         },
                       ),
                     ),
-                    const Padding(
-                      padding: EdgeInsets.only(top: 16),
-                      child: BoringH6('Description'),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 16),
+                      child: BoringH6(Copy.manageTask.descriptionTitle),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(top: 8),
                       child: BoringTextFormField(
                         initialValue: task!.description,
-                        hint: 'Task Details',
+                        hint: Copy.manageTask.descriptionHint,
                         onSaved: (value) =>
                             taskDescription = value != null ? value.trim() : '',
                         validator: (value) {
@@ -155,13 +156,14 @@ class _ManageTaskPageState extends State<ManageTaskPage> {
                         padding: const EdgeInsets.only(top: 16),
                         child: Row(
                           children: [
-                            BoringLink('Cancel',
+                            BoringLink(Copy.manageTask.cancel,
                                 onPressed: () => {
                                       context
                                           .go('/?project=${widget.projectId}')
                                     }),
                             const Spacer(),
-                            BoringButton('Save', onPressed: _saveTask)
+                            BoringButton(Copy.manageTask.save,
+                                onPressed: _saveTask)
                           ],
                         )),
                   ],
@@ -173,7 +175,7 @@ class _ManageTaskPageState extends State<ManageTaskPage> {
   Widget deleteView(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Delete Task'),
+        title: Text(Copy.manageTask.deleteTitle),
         centerTitle: false,
         automaticallyImplyLeading: false,
       ),
@@ -191,22 +193,23 @@ class _ManageTaskPageState extends State<ManageTaskPage> {
                   children: [
                     Padding(
                       padding: const EdgeInsets.only(top: 16),
-                      child: BoringH6('Delete ${task!.name}?'),
+                      child: BoringH6(Copy.manageTask.deletePrompt(task!.name)),
                     ),
                     Padding(
                         padding: const EdgeInsets.only(top: 16),
                         child: Row(
                           children: [
-                            const BoringText('Are you sure?'),
+                            BoringText(Copy.manageTask.areYouSure),
                             const Spacer(),
-                            BoringButton('No',
+                            BoringButton(Copy.manageTask.no,
                                 onPressed: () => {
                                       setState(
                                         () => deleting = false,
                                       )
                                     }),
                             const Spacer(),
-                            BoringButton('Yes', onPressed: _deleteTask),
+                            BoringButton(Copy.manageTask.yes,
+                                onPressed: _deleteTask),
                           ],
                         )),
                   ],

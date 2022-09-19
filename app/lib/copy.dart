@@ -5,6 +5,9 @@ class Copy {
   static ManageProjectPageCopy manageProject = const ManageProjectPageCopy();
   static CompleteProjectPageCopy completeProject =
       const CompleteProjectPageCopy();
+  static NewTaskPageCopy newTask = const NewTaskPageCopy();
+  static ManageTaskPageCopy manageTask = const ManageTaskPageCopy();
+  static CompleteTaskPageCopy completeTask = const CompleteTaskPageCopy();
 }
 
 class CommonCopy {
@@ -39,7 +42,7 @@ class HomePageCopy {
 class NewProjectPageCopy {
   const NewProjectPageCopy();
 
-  String get newProject => 'New Project';
+  String get title => 'New Project';
   String get nameTitle => 'What is your project named?';
   String get namePrompt =>
       'It can be a working name, an actual name, or a silly made-up name.';
@@ -57,7 +60,7 @@ class NewProjectPageCopy {
 class ManageProjectPageCopy {
   const ManageProjectPageCopy();
 
-  String get manageProject => 'Edit Project';
+  String get title => 'Edit Project';
   String get nameTitle => 'Name';
   String get nameHint => 'My Project';
   String get nameError => 'Must be between 1 and 32 characters';
@@ -77,4 +80,46 @@ class CompleteProjectPageCopy {
       'Would you like to mark this project as complete? Any remaining tasks will be closed.';
   String get yes => 'yes';
   String get no => 'No';
+}
+
+class NewTaskPageCopy {
+  const NewTaskPageCopy();
+
+  String get title => 'New Task';
+  String get nameTitle => 'What is the next thing you need to do?';
+  String namePrompt(String time) =>
+      'Remember, you need to be able to complete this in $time!';
+  String get nameHint => 'Task Name';
+  String get nameError => 'Must be between 1 and 32 characters';
+  String get descriptionTitle => 'Any other details or thoughts?';
+  String get descriptionPrompt =>
+      'Is there anything you need to remember that you need to get out of your head?';
+  String get descriptionHint => 'Task Details';
+  String get cancel => 'Cancel';
+  String get save => 'Go';
+}
+
+class ManageTaskPageCopy {
+  const ManageTaskPageCopy();
+
+  String get editTitle => 'Edit Task';
+  String get deleteTitle => 'Delete Task';
+  String get nameTitle => 'Name';
+  String get nameHint => 'Task Name';
+  String get nameError => 'Must be between 1 and 32 characters';
+  String get descriptionTitle => 'Description';
+  String get descriptionHint => 'Task Details';
+  String deletePrompt(String name) => 'Delete $name?';
+  String get areYouSure => 'Are you sure?';
+  String get yes => 'yes';
+  String get no => 'No';
+  String get delete => 'Delete';
+  String get cancel => 'Cancel';
+  String get save => 'Save';
+}
+
+class CompleteTaskPageCopy {
+  const CompleteTaskPageCopy();
+
+  String get title => 'Well Done!';
 }
