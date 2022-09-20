@@ -122,7 +122,11 @@ class _HomePageState extends State<HomePage> {
       List<Widget> items = [];
       items.add(Padding(
         padding: const EdgeInsets.only(bottom: 16),
-        child: BoringH4(p.name),
+        child: BoringH4(
+          p.name,
+          textAlign: TextAlign.center,
+          color: const Color(0xFF4527A0),
+        ),
       ));
 
       List<Widget> projectTasks = getProjectTasks(context, p.id);
@@ -188,10 +192,10 @@ class _HomePageState extends State<HomePage> {
     }
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(Copy.common.appTitle),
-        centerTitle: false,
-      ),
+      // appBar: AppBar(
+      //   title: Text(Copy.common.appTitle),
+      //   centerTitle: false,
+      // ),
       body: SingleChildScrollView(
         child: Center(
           child: Row(
@@ -424,7 +428,11 @@ class _HomePageState extends State<HomePage> {
     } else {
       taskWidgets.add(Padding(
           padding: const EdgeInsets.only(top: 4),
-          child: Center(child: BoringCaption(Copy.home.maxTasksPrompt))));
+          child: Center(
+              child: BoringCaption(
+            Copy.home.maxTasksPrompt,
+            textAlign: TextAlign.center,
+          ))));
     }
     return taskWidgets;
   }
