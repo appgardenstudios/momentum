@@ -1,186 +1,256 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="favicon.ico" sizes="any">
-    <link rel="icon" href="favicon.svg" type="image/svg+xml">
-    <title>Momentum</title>
-    <style>
-      html {
-        box-sizing: border-box;
-        font-size: 16px;
-        font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui, helvetica neue, helvetica, Cantarell, Ubuntu, roboto, noto, arial, sans-serif;
-      }
-      *, *:before, *:after {
-        box-sizing: inherit;
-      }
-      body, h1, h2, h3, h4, h5, h6, p, ol, ul {
-        margin: 0;
-        padding: 0;
-        font-weight: normal;
-      }
-      h1, h2, h3 {
-        color: #311B92;
-      }
-      body {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-      }
-      body > div {
-        max-width: 960px;
-      }
-
-      #hero {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        min-height: 320px;
-      }
-      #hero > h2 {
-        margin-top: 48px;
-      }
-
-      #momentum {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        min-height: 320px;
-      }
-
-      #walkthrough-1, #walkthrough-2, #walkthrough-3 {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        align-items: center;
-        justify-content: center;
-        gap: 32px 32px;
-        margin-top: 32px;
-      }
-      #walkthrough-1 > div {
-        max-width: 480px;
-      }
-      #walkthrough-2 > div {
-        max-width: 240px;
-      }
-      #walkthrough-3 > div {
-        max-width: 480px;
-      }
-
-      #cta {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        min-height: 320px;
-      }
-
-      #faq {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-      }
-      #faq-list {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        align-items: center;
-        justify-content: center;
-        gap: 32px 32px;
-        margin-top: 32px;
-      }
-
-      footer {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: space-evenly;
-        min-height: 48px;
-      }
-    </style>
-  </head>
-  <body>
-    <div id="hero">
-      <h1>Are you working on a side project?</h1>
-      <h1>Are you busy and have very little time?</h1>
-      <h1>Are you struggling to make progress?</h1>
-
-      <h2>If you do the next thing that needs to be done every single day, you can finish your project.</h2>
-    </div>
-    <div id="momentum">
-      <h2>Momentum helps you work on "The Next Thing" every single day so you can get your project done.</h2>
-      <div>TODO CTA</div>
-    </div>
-    <div id="walkthrough-1">
-      <img src="https://via.placeholder.com/200x400" alt="New Project Screenshot"/>
-      <div>
-        <h3>Configure your project in Momentum</h3>
-        <p>Give it a name and decide how much time you can work on your project every single day. This should be the minimum amount of time you have available. This number is important because the work you do needs to fit within this timeframe so you can complete something every day.</p>
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="favicon.ico" sizes="any">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <title>Momentum</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-white">
+  <header>
+    <div class="relative bg-white">
+      <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-6 sm:px-6 md:justify-start md:space-x-10 lg:px-8">
+        <div class="flex justify-start">
+          <a href="#">
+            <span class="sr-only">Your Company</span>
+            <img class="h-8 w-auto sm:h-10" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt="">
+          </a>
+        </div>
+        <nav class="hidden space-x-10 md:flex">
+          <a href="#how-it-works" class="text-base font-medium text-gray-500 hover:text-gray-900">How it Works</a>
+          <a href="#faqs" class="text-base font-medium text-gray-500 hover:text-gray-900">FAQs</a>
+        </nav>
       </div>
     </div>
-    <div id="walkthrough-2">
-      <div>
-        <h3>Record the Next Thing</h3>
-        <p>This should be the next thing that can be done within the time you have available. You can have up to 3 next things.</p>
+  </header>
+
+  <main>
+    <div>
+      <!-- Hero card -->
+      <div class="relative">
+        <div class="absolute inset-x-0 bottom-0 h-1/2 bg-gray-100"></div>
+        <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
+          <div class="relative shadow-xl sm:overflow-hidden sm:rounded-2xl">
+            <div class="absolute inset-0">
+              <img class="h-full w-full object-cover" src="thought-catalog-UK78i6vK3sc-unsplash.jpg" alt="People working on laptops">
+              <div class="absolute inset-0 bg-indigo-700 mix-blend-multiply"></div>
+            </div>
+            <div class="relative px-4 py-16 sm:px-6 sm:py-24 lg:py-32 lg:px-8">
+              <h1 class="text-center text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
+                <span class="block text-white">Struggling to finish your</span>
+                <span class="block text-indigo-200">side project?</span>
+              </h1>
+              <p class="mx-auto mt-6 max-w-lg text-center text-xl text-indigo-200 sm:max-w-3xl">You can do it! If you focus on doing the next thing that needs to be done every single day, you <i>can</i> finish your project.</p>
+              
+            </div>
+          </div>
+        </div>
       </div>
-      <img src="https://via.placeholder.com/200x400" alt="New Task Screenshot"/>
-      <div>
-        <h3>Jot down your notes</h3>
-        <p>Get it all out of your head and into the app so you have everything you need when you sit down to work on your project.</p>
+      
+        <!-- Hero CTA -->
+      <div class="bg-gray-100">
+        <div class="mx-auto max-w-7xl py-12 px-4 text-center sm:px-6 lg:py-16 lg:px-8">
+          <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+            <span class="block">Ready to get going?</span>
+            <span class="block">Install the free app.</span>
+          </h2>
+          <div class="mt-8 flex justify-center">
+            <div class="inline-flex rounded-md shadow">
+              <a href="#" class="inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-5 py-3 text-base font-medium text-white hover:bg-indigo-700">Get on App Store</a>
+            </div>
+            <div class="ml-3 inline-flex">
+              <a href="#" class="inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-100 px-5 py-3 text-base font-medium text-indigo-700 hover:bg-indigo-200">Get on Android</a>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-    <div id="walkthrough-3">
-      <div>
-        <h3>Work on your project every day</h3>
-        <p>Sit down and do the next thing. If you don't know the next thing, the next thing is taking time to figure out the next thing. Once you are done with something, complete it, celebrate it, and move on to the next thing.</p>
+
+    <!-- How it Works -->
+    <div id="how-it-works" class="relative overflow-hidden bg-white pt-16 pb-32">
+      <div class="relative">
+        <div class="lg:mx-auto lg:grid lg:max-w-7xl lg:grid-flow-col-dense lg:grid-cols-2 lg:gap-24 lg:px-8">
+          <div class="mx-auto max-w-xl px-4 sm:px-6 lg:mx-0 lg:max-w-none lg:py-16 lg:px-0">
+            <div>
+              <div>
+                <span class="flex h-12 w-12 items-center justify-center rounded-md bg-indigo-600">
+                  <!-- Heroicon name: outline/cog-6-tooth -->
+                  <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.324.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 011.37.49l1.296 2.247a1.125 1.125 0 01-.26 1.431l-1.003.827c-.293.24-.438.613-.431.992a6.759 6.759 0 010 .255c-.007.378.138.75.43.99l1.005.828c.424.35.534.954.26 1.43l-1.298 2.247a1.125 1.125 0 01-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.57 6.57 0 01-.22.128c-.331.183-.581.495-.644.869l-.213 1.28c-.09.543-.56.941-1.11.941h-2.594c-.55 0-1.02-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 01-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 01-1.369-.49l-1.297-2.247a1.125 1.125 0 01.26-1.431l1.004-.827c.292-.24.437-.613.43-.992a6.932 6.932 0 010-.255c.007-.378-.138-.75-.43-.99l-1.004-.828a1.125 1.125 0 01-.26-1.43l1.297-2.247a1.125 1.125 0 011.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.087.22-.128.332-.183.582-.495.644-.869l.214-1.281z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                  </svg>
+                </span>
+              </div>
+              <div class="mt-6">
+                <h2 class="text-3xl font-bold tracking-tight text-gray-900">Configure your project</h2>
+                <p class="mt-4 text-lg text-gray-500">Give it a name and decide how much time you can work on your project every single day. This should be the minimum amount of time you have available. This number is important because the work you do needs to fit within this timeframe so you can complete something every day.</p>
+                
+              </div>
+            </div>
+            
+          </div>
+          <div class="mt-12 sm:mt-16 lg:mt-0">
+            <div class="-mr-48 pl-4 sm:pl-6 md:-mr-16 lg:relative lg:m-0 lg:h-full lg:px-0">
+              <img class="w-full rounded-xl shadow-xl ring-1 ring-black ring-opacity-5 lg:absolute lg:left-0 lg:h-full lg:w-auto lg:max-w-none" src="https://via.placeholder.com/800x400" alt="Create app interface">
+            </div>
+          </div>
+        </div>
       </div>
-      <img src="https://via.placeholder.com/200x400" alt="Home Page Screenshot"/>
+      <div class="mt-24">
+        <div class="lg:mx-auto lg:grid lg:max-w-7xl lg:grid-flow-col-dense lg:grid-cols-2 lg:gap-24 lg:px-8">
+          <div class="mx-auto max-w-xl px-4 sm:px-6 lg:col-start-2 lg:mx-0 lg:max-w-none lg:py-32 lg:px-0">
+            <div>
+              <div>
+                <span class="flex h-12 w-12 items-center justify-center rounded-md bg-indigo-600">
+                  <!-- Heroicon name: outline/sparkles -->
+                  <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 001.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 001.423 1.423l1.183.394-1.183.394a2.25 2.25 0 00-1.423 1.423z" />
+                  </svg>
+                </span>
+              </div>
+              <div class="mt-6">
+                <h2 class="text-3xl font-bold tracking-tight text-gray-900">Record the Next Thing</h2>
+                <p class="mt-4 text-lg text-gray-500">This should be the next thing that can be done within the time you have available. You can have up to 3 next things. Get it all out of your head and into the app so you have everything you need when you sit down to work on your project.</p>
+                
+              </div>
+            </div>
+          </div>
+          <div class="mt-12 sm:mt-16 lg:col-start-1 lg:mt-0">
+            <div class="-ml-48 pr-4 sm:pr-6 md:-ml-16 lg:relative lg:m-0 lg:h-full lg:px-0">
+              <img class="w-full rounded-xl shadow-xl ring-1 ring-black ring-opacity-5 lg:absolute lg:right-0 lg:h-full lg:w-auto lg:max-w-none" src="https://via.placeholder.com/800x400" alt="Create task interface">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="mt-24">
+        <div class="lg:mx-auto lg:grid lg:max-w-7xl lg:grid-flow-col-dense lg:grid-cols-2 lg:gap-24 lg:px-8">
+          <div class="mx-auto max-w-xl px-4 sm:px-6 lg:mx-0 lg:max-w-none lg:py-16 lg:px-0">
+            <div>
+              <div>
+                <span class="flex h-12 w-12 items-center justify-center rounded-md bg-indigo-600">
+                  <!-- Heroicon name: outline/arrow-path -->
+                  <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
+                  </svg>
+                </span>
+              </div>
+              <div class="mt-6">
+                <h2 class="text-3xl font-bold tracking-tight text-gray-900">Work on your project every day</h2>
+                <p class="mt-4 text-lg text-gray-500">Sit down and do the next thing. If you don't know the next thing, the next thing is taking time to figure out the next thing. Once you are done with something, complete it, celebrate it, and move on to the next thing.</p>
+                
+              </div>
+            </div>
+            
+          </div>
+          <div class="mt-12 sm:mt-16 lg:mt-0">
+            <div class="-mr-48 pl-4 sm:pl-6 md:-mr-16 lg:relative lg:m-0 lg:h-full lg:px-0">
+              <img class="w-full rounded-xl shadow-xl ring-1 ring-black ring-opacity-5 lg:absolute lg:left-0 lg:h-full lg:w-auto lg:max-w-none" src="https://via.placeholder.com/800x400" alt="Home page interface">
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-    <div id="cta">TODO CTA</div>
-    <div id="faq">
-      <h2>Frequently Asked Questions</h2>
-      <div id="faq-list">
-        <div>
-          <h3>Who is this for?</h3>
-          <p>TODO</p>
+
+    <!-- CTA -->
+    <div class="bg-gray-100">
+      <div class="mx-auto max-w-7xl py-12 px-4 text-center sm:px-6 lg:py-16 lg:px-8">
+        <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+          <span class="block">Ready to get going?</span>
+          <span class="block">Install the free app.</span>
+        </h2>
+        <div class="mt-8 flex justify-center">
+          <div class="inline-flex rounded-md shadow">
+            <a href="#" class="inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-5 py-3 text-base font-medium text-white hover:bg-indigo-700">Get started</a>
+          </div>
+          <div class="ml-3 inline-flex">
+            <a href="#" class="inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-100 px-5 py-3 text-base font-medium text-indigo-700 hover:bg-indigo-200">Learn more</a>
+          </div>
         </div>
-        <div>
-          <h3>Why only 3 tasks?</h3>
-          <p></p>
-        </div>
-        <div>
-          <h3>Why only 3 projects?</h3>
-          <p></p>
-        </div>
-        <div>
-          <h3>Why is this not a website?</h3>
-          <p></p>
-        </div>
-        <div>
-          <h3>What do you do with my data?</h3>
-          <p></p>
-        </div>
-        <div>
-          <h3>Why no ads?</h3>
-          <p></p>
-        </div>
-        <div>
-          <h3>Is this open source?</h3>
-          <p></p>
-        </div>
-        <div>
-          <h3>What's next?</h3>
-          <p></p>
-        </div>
-      <div>
+      </div>
     </div>
-    <footer>
-      <div>Contact Us | Github | Apple App Store | Android App Store</div>
-      <div>© App Garden Studios, LLC</div>
-    </footer>
-  </body>
+
+    <!-- FAQs -->
+    <div id="faqs" class="bg-white">
+      <div class="mx-auto max-w-7xl py-16 px-4 sm:px-6 lg:py-20 lg:px-8">
+        <div class="lg:grid lg:grid-cols-3 lg:gap-8">
+          <div>
+            <h2 class="text-3xl font-bold tracking-tight text-gray-900">Frequently asked questions</h2>
+            <p class="mt-4 text-lg text-gray-500">Can’t find the answer you’re looking for? Reach out to our <a href="mailto:support@appgardenstudios.com" class="font-medium text-indigo-600 hover:text-indigo-500">customer support</a> team.</p>
+          </div>
+          <div class="mt-12 lg:col-span-2 lg:mt-0">
+            <dl class="space-y-12">
+              <div>
+                <dt class="text-lg font-medium leading-6 text-gray-900">Who is this for?</dt>
+                <dd class="mt-2 text-base text-gray-500">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas cupiditate laboriosam fugiat.</dd>
+              </div>
+
+              <div>
+                <dt class="text-lg font-medium leading-6 text-gray-900">Why only 3 tasks?</dt>
+                <dd class="mt-2 text-base text-gray-500">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas cupiditate laboriosam fugiat.</dd>
+              </div>
+
+              <div>
+                <dt class="text-lg font-medium leading-6 text-gray-900">Why only 3 projects?</dt>
+                <dd class="mt-2 text-base text-gray-500">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas cupiditate laboriosam fugiat.</dd>
+              </div>
+
+              <div>
+                <dt class="text-lg font-medium leading-6 text-gray-900">Why is this not a website?</dt>
+                <dd class="mt-2 text-base text-gray-500">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas cupiditate laboriosam fugiat.</dd>
+              </div>
+
+              <div>
+                <dt class="text-lg font-medium leading-6 text-gray-900">What do you do with my data?</dt>
+                <dd class="mt-2 text-base text-gray-500">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas cupiditate laboriosam fugiat.</dd>
+              </div>
+
+              <div>
+                <dt class="text-lg font-medium leading-6 text-gray-900">Why no ads?</dt>
+                <dd class="mt-2 text-base text-gray-500">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas cupiditate laboriosam fugiat.</dd>
+              </div>
+
+              <div>
+                <dt class="text-lg font-medium leading-6 text-gray-900">Is this open source?</dt>
+                <dd class="mt-2 text-base text-gray-500">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas cupiditate laboriosam fugiat.</dd>
+              </div>
+
+              <div>
+                <dt class="text-lg font-medium leading-6 text-gray-900">What's next?</dt>
+                <dd class="mt-2 text-base text-gray-500">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas cupiditate laboriosam fugiat.</dd>
+              </div>
+    
+              <!-- More questions... -->
+            </dl>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="bg-gray-100">
+    <div class="mx-auto max-w-7xl overflow-hidden py-12 px-4 sm:px-6 lg:px-8">
+      <nav class="-mx-5 -my-2 flex flex-wrap justify-center" aria-label="Footer">
+        <div class="px-5 py-2">
+          <a href="mailto:support@appgardenstudios.com" class="text-base text-gray-500 hover:text-gray-900">Contact Us</a>
+        </div>
+
+        <div class="px-5 py-2">
+          <a href="https://github.com/appgardenstudios/momentum" class="text-base text-gray-500 hover:text-gray-900">Github</a>
+        </div>
+
+        <div class="px-5 py-2">
+          <a href="#" class="text-base text-gray-500 hover:text-gray-900">Apple App store</a>
+        </div>
+
+        <div class="px-5 py-2">
+          <a href="#" class="text-base text-gray-500 hover:text-gray-900">Android App Store</a>
+        </div>
+      </nav>
+      <p class="mt-8 text-center text-base text-gray-400">&copy; 2022 App Garden Studios, LLC. All rights reserved.</p>
+    </div>
+  </footer>
+  
+</body>
 </html>
