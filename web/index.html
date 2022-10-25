@@ -14,8 +14,13 @@
       <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-6 sm:px-6 md:justify-start md:space-x-10 lg:px-8">
         <div class="flex justify-start">
           <a href="#">
-            <span class="sr-only">Your Company</span>
-            <img class="h-8 w-auto sm:h-10" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt="">
+            <span class="sr-only">Momentum</span>
+            <svg class="h-16 w-auto" viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="70.2346" y="56.5386" width="37" height="140" rx="18.5" transform="rotate(15 70.2346 56.5386)" fill="#6E1DBF" fill-opacity="0.67"/>
+              <rect x="166.364" y="54" width="37" height="126.647" rx="18.5" transform="rotate(30 166.364 54)" fill="#6E1DBF" fill-opacity="0.67"/>
+              <rect x="58.0404" y="72.5" width="37" height="126.647" rx="18.5" transform="rotate(-30 58.0404 72.5)" fill="#6E1DBF" fill-opacity="0.67"/>
+              <rect x="150.379" y="66.2792" width="37" height="140" rx="18.5" transform="rotate(-15 150.379 66.2792)" fill="#6E1DBF" fill-opacity="0.67"/>
+              </svg>
           </a>
         </div>
         <nav class="hidden space-x-10 md:flex">
@@ -27,43 +32,41 @@
   </header>
 
   <main>
-    <div>
-      <!-- Hero card -->
-      <div class="relative">
-        <div class="absolute inset-x-0 bottom-0 h-1/2 bg-gray-100"></div>
-        <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
-          <div class="relative shadow-xl sm:overflow-hidden sm:rounded-2xl">
-            <div class="absolute inset-0">
-              <img class="h-full w-full object-cover" src="img/thought-catalog-UK78i6vK3sc-unsplash.jpg" alt="People working on laptops">
-              <div class="absolute inset-0 bg-indigo-700 mix-blend-multiply"></div>
-            </div>
-            <div class="relative px-4 py-16 sm:px-6 sm:py-24 lg:py-32 lg:px-8">
-              <h1 class="text-center text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
-                <span class="block text-white">Struggling to finish your</span>
-                <span class="block text-indigo-200">side project?</span>
-              </h1>
-              <p class="mx-auto mt-6 max-w-lg text-center text-xl text-indigo-200 sm:max-w-3xl">You can do it! If you focus on doing the next thing that needs to be done every single day, you <i>can</i> finish your project.</p>
-              
-            </div>
+    <!-- Hero card -->
+    <div class="relative">
+      <div class="absolute inset-x-0 bottom-0 h-1/2 bg-gray-100"></div>
+      <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
+        <div class="relative shadow-xl sm:overflow-hidden sm:rounded-2xl">
+          <div class="absolute inset-0">
+            <img class="h-full w-full object-cover" src="img/thought-catalog-UK78i6vK3sc-unsplash.jpg" alt="People working on laptops">
+            <div class="absolute inset-0 bg-indigo-700 mix-blend-multiply"></div>
+          </div>
+          <div class="relative px-4 py-16 sm:px-6 sm:py-24 lg:py-32 lg:px-8">
+            <h1 class="text-center text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
+              <span class="block text-white">Struggling to finish your</span>
+              <span class="block text-indigo-200">side project?</span>
+            </h1>
+            <p class="mx-auto mt-6 max-w-lg text-center text-xl text-indigo-200 sm:max-w-3xl">You can do it! If you focus on doing the next thing that needs to be done every single day, you <i>can</i> finish your project.</p>
+            
           </div>
         </div>
       </div>
+    </div>
       
-        <!-- Hero CTA -->
-      <div class="bg-gray-100">
-        <div class="mx-auto max-w-7xl py-12 px-4 text-center sm:px-6 lg:py-16 lg:px-8">
-          <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-            <span class="block">Ready to get going?</span>
-            <span class="block">Install Maintainable Momentum.</span>
-          </h2>
-          <div class="mt-8 flex justify-center">
-            <div class="inline-flex rounded-md shadow">
-              <a href="#" class="inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-5 py-3 text-base font-medium text-white hover:bg-indigo-700">Get on App Store</a>
-            </div>
-            <div class="ml-3 inline-flex">
-              <a href="#" class="inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-100 px-5 py-3 text-base font-medium text-indigo-700 hover:bg-indigo-200">Get on Android</a>
-            </div>
-          </div>
+    <!-- Hero CTA -->
+    <div class="bg-gray-100">
+      <div class="mx-auto max-w-7xl py-12 px-4 text-center sm:px-6 lg:py-16 lg:px-8">
+        <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+          <span class="block">Ready to finish your project?</span>
+          <span class="block">Get Maintainable Momentum.</span>
+        </h2>
+        <div class="mt-8 flex justify-center gap-4 flex-wrap">
+          <a href="#" class="inline-flex">
+            <img class="h-16 drop-shadow" src="img/apple-appstore-badge.svg" alt="Get Maintainable Momentum on the Apple App store">
+          </a>
+          <a href="#" class="inline-flex">
+            <img class="h-16 drop-shadow" src="img/google-play-badge.svg" alt="Get Maintainable Momentum on the Google Play store">
+          </a>
         </div>
       </div>
     </div>
@@ -71,8 +74,8 @@
     <!-- How it Works -->
     <div id="how-it-works" class="mx-auto max-w-7xl relative overflow-hidden bg-white pt-16 pb-24">
       
-      <div class="flex flex-wrap items-center justify-center gap-8 px-8">
-        <div class="mx-auto max-w-xl">
+      <div class="flex flex-wrap items-center justify-center gap-12 px-8">
+        <div class="max-w-xl">
           <div class="flex items-center gap-2">
             <span class="flex h-12 w-12 items-center justify-center rounded-md bg-indigo-600">
               <!-- Heroicon name: outline/cog-6-tooth -->
@@ -90,8 +93,8 @@
         </div>
       </div>
 
-      <div class="flex flex-wrap items-center justify-center flex-row-reverse gap-8 px-8 mt-24">
-        <div class="mx-auto max-w-xl">
+      <div class="flex flex-wrap items-center justify-center flex-row-reverse gap-12 px-8 mt-24">
+        <div class="max-w-xl">
           <div class="flex items-center gap-2">
             <span class="flex h-12 w-12 items-center justify-center rounded-md bg-indigo-600">
               <!-- Heroicon name: outline/sparkles -->
@@ -108,8 +111,8 @@
         </div>
       </div>
 
-      <div class="flex flex-wrap items-center justify-center gap-8 px-8 mt-24">
-        <div class="mx-auto max-w-xl">
+      <div class="flex flex-wrap items-center justify-center gap-12 px-8 mt-24">
+        <div class="max-w-xl">
           <div class="flex items-center gap-2">
             <span class="flex h-12 w-12 items-center justify-center rounded-md bg-indigo-600">
              <!-- Heroicon name: outline/arrow-path -->
@@ -132,16 +135,16 @@
     <div class="bg-gray-100">
       <div class="mx-auto max-w-7xl py-12 px-4 text-center sm:px-6 lg:py-16 lg:px-8">
         <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-          <span class="block">Ready to get going?</span>
-          <span class="block">Install Maintainable Momentum.</span>
+          <span class="block">Ready to finish your project?</span>
+          <span class="block">Get Maintainable Momentum.</span>
         </h2>
-        <div class="mt-8 flex justify-center">
-          <div class="inline-flex rounded-md shadow">
-            <a href="#" class="inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-5 py-3 text-base font-medium text-white hover:bg-indigo-700">Get started</a>
-          </div>
-          <div class="ml-3 inline-flex">
-            <a href="#" class="inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-100 px-5 py-3 text-base font-medium text-indigo-700 hover:bg-indigo-200">Learn more</a>
-          </div>
+        <div class="mt-8 flex justify-center gap-4 flex-wrap">
+          <a href="#" class="inline-flex">
+            <img class="h-16 drop-shadow" src="img/apple-appstore-badge.svg" alt="Get Maintainable Momentum on the Apple App store">
+          </a>
+          <a href="#" class="inline-flex">
+            <img class="h-16 drop-shadow" src="img/google-play-badge.svg" alt="Get Maintainable Momentum on the Google Play store">
+          </a>
         </div>
       </div>
     </div>
