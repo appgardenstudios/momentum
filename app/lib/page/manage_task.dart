@@ -129,7 +129,7 @@ class _ManageTaskPageState extends State<ManageTaskPage> {
                         validator: (value) {
                           if (value == null ||
                               value.trim().isEmpty ||
-                              value.trim().length > 32) {
+                              value.trim().length > 64) {
                             return Copy.manageTask.nameError;
                           }
                           return null;

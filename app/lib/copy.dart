@@ -94,7 +94,7 @@ class NewTaskPageCopy {
   String namePrompt(String time) =>
       'You should to be able to complete this in $time.';
   String get nameHint => 'The Next Thing';
-  String get nameError => 'Must be between 1 and 32 characters';
+  String get nameError => 'Must be between 1 and 64 characters';
   String get descriptionTitle =>
       'Are there any details or notes you need to write down?';
   String get descriptionPrompt =>
@@ -111,7 +111,7 @@ class ManageTaskPageCopy {
   String get deleteTitle => 'Delete Task';
   String get nameTitle => 'The Next Thing';
   String get nameHint => '';
-  String get nameError => 'Must be between 1 and 32 characters';
+  String get nameError => 'Must be between 1 and 64 characters';
   String get descriptionTitle => 'Details or Notes';
   String get descriptionHint => '';
   String deletePrompt(String name) => 'Delete $name';
