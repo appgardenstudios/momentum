@@ -116,18 +116,26 @@ class _HomePageState extends State<HomePage> {
     if (itemWidth > 320) {
       itemWidth = 320;
     }
+    List<Widget> headerWidgets = [];
     List<Widget> projectWidgets = [];
+
+    headerWidgets.addAll(projects.map((p) {
+      return Container(
+        constraints: BoxConstraints(minWidth: itemWidth, maxWidth: itemWidth),
+        margin: const EdgeInsets.only(top: 4, left: 16),
+        child: Padding(
+          padding: const EdgeInsets.only(bottom: 0),
+          child: BoringH4(
+            p.name,
+            textAlign: TextAlign.center,
+            color: const Color(0xFF4527A0),
+          ),
+        ),
+      );
+    }));
 
     projectWidgets.addAll(projects.map((p) {
       List<Widget> items = [];
-      items.add(Padding(
-        padding: const EdgeInsets.only(bottom: 16),
-        child: BoringH4(
-          p.name,
-          textAlign: TextAlign.center,
-          color: const Color(0xFF4527A0),
-        ),
-      ));
 
       List<Widget> projectTasks = getProjectTasks(context, p.id);
       for (var i = 0; i < projectTasks.length; i++) {
@@ -145,7 +153,7 @@ class _HomePageState extends State<HomePage> {
           )));
 
       return Container(
-        constraints: BoxConstraints(minWidth: 100, maxWidth: itemWidth),
+        constraints: BoxConstraints(minWidth: itemWidth, maxWidth: itemWidth),
         margin: const EdgeInsets.only(top: 16, left: 16),
         child: Column(
           children: items,
@@ -159,8 +167,9 @@ class _HomePageState extends State<HomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Container(
-                constraints: BoxConstraints(minWidth: 100, maxWidth: itemWidth),
-                margin: const EdgeInsets.only(top: 24),
+                constraints:
+                    BoxConstraints(minWidth: itemWidth, maxWidth: itemWidth),
+                margin: const EdgeInsets.only(top: 0),
                 padding: const EdgeInsets.all(16),
                 child: BoringText(
                   Copy.home.createAnotherProjectPrompt,
@@ -179,8 +188,9 @@ class _HomePageState extends State<HomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Container(
-                constraints: BoxConstraints(minWidth: 100, maxWidth: itemWidth),
-                margin: const EdgeInsets.only(top: 56),
+                constraints:
+                    BoxConstraints(minWidth: itemWidth, maxWidth: itemWidth),
+                margin: const EdgeInsets.only(top: 0),
                 padding: const EdgeInsets.all(16),
                 child: BoringText(
                   Copy.home.maxProjectsPrompt,
@@ -192,20 +202,20 @@ class _HomePageState extends State<HomePage> {
     }
 
     return Scaffold(
-      // appBar: AppBar(
-      //   title: Text(Copy.common.appTitle),
-      //   centerTitle: false,
-      // ),
-      body: SingleChildScrollView(
-        child: Center(
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: projectWidgets,
+        body: Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        Row(children: headerWidgets),
+        Expanded(
+          child: SingleChildScrollView(
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: projectWidgets,
+            ),
           ),
-        ),
-      ),
-    );
+        )
+      ],
+    ));
   }
 
   Widget singleColumnProjectView(BuildContext context) {
