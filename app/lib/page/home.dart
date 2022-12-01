@@ -111,6 +111,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget multiColumnProjectView(BuildContext context, double width) {
+    final ThemeData theme = Theme.of(context);
     double itemWidth =
         (width - (16 * (projects.length + 1))) / (projects.length + 1);
     if (itemWidth > 320) {
@@ -122,17 +123,21 @@ class _HomePageState extends State<HomePage> {
     headerWidgets.addAll(projects.map((p) {
       return Container(
         constraints: BoxConstraints(minWidth: itemWidth, maxWidth: itemWidth),
-        margin: const EdgeInsets.only(top: 4, left: 16),
+        margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 4),
         child: Padding(
           padding: const EdgeInsets.only(bottom: 0),
-          child: BoringH4(
+          child: BoringH6(
             p.name,
             textAlign: TextAlign.center,
-            color: const Color(0xFF4527A0),
+            color: theme.colorScheme.onPrimary,
           ),
         ),
       );
     }));
+
+    // Add an empty column to account for the right-most prompt
+    headerWidgets.add(Container(
+        constraints: BoxConstraints(minWidth: itemWidth, maxWidth: itemWidth)));
 
     projectWidgets.addAll(projects.map((p) {
       List<Widget> items = [];
@@ -205,10 +210,20 @@ class _HomePageState extends State<HomePage> {
         body: Column(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        Row(children: headerWidgets),
+        Material(
+          color: theme.primaryColor,
+          elevation: 3.0,
+          shadowColor: const Color(0xFF000000),
+          child: SafeArea(
+              child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: headerWidgets,
+          )),
+        ),
         Expanded(
           child: SingleChildScrollView(
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: projectWidgets,
             ),

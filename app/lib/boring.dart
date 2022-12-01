@@ -97,18 +97,24 @@ class BoringH5 extends StatelessWidget {
 }
 
 class BoringH6 extends StatelessWidget {
-  const BoringH6(this.text, {Key? key, this.textAlign = TextAlign.start})
+  const BoringH6(this.text,
+      {Key? key, this.textAlign = TextAlign.start, this.color})
       : super(key: key);
 
   final String text;
   final TextAlign textAlign;
+  final Color? color;
 
   @override
   Widget build(BuildContext context) {
     return Text(
       text,
-      style: const TextStyle(
-          fontSize: 20, fontWeight: FontWeight.w500, letterSpacing: 0.15),
+      style: TextStyle(
+        fontSize: 20,
+        fontWeight: FontWeight.w500,
+        letterSpacing: 0.15,
+        color: color,
+      ),
       textAlign: textAlign,
     );
   }
