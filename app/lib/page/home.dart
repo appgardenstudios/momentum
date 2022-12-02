@@ -215,10 +215,11 @@ class _HomePageState extends State<HomePage> {
           elevation: 3.0,
           shadowColor: const Color(0xFF000000),
           child: SafeArea(
+              bottom: false,
               child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: headerWidgets,
-          )),
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: headerWidgets,
+              )),
         ),
         Expanded(
           child: SingleChildScrollView(
